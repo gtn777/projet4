@@ -54,13 +54,12 @@ public class ParkingDataBaseIT {
 	private void cleanDatabase() {
 //		dataBasePrepareService.clearDataBaseEntries();
 	}
-	
+
 	@AfterAll
 	private static void tearDown() {
-		dataBasePrepareService.clearDataBaseEntries();
+//		dataBasePrepareService.clearDataBaseEntries();
 	}
 
-	//@Disabled
 	@Test
 	public void testParkingACar() {
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -86,8 +85,7 @@ public class ParkingDataBaseIT {
 
 		assertEquals(1, savedUnavailableParkingNumber);
 	}
-	
-	//@Disabled
+
 	@Test
 	public void testParkingLotExit() {
 		testParkingACar();
@@ -102,7 +100,7 @@ public class ParkingDataBaseIT {
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket WHERE PRICE > 0 AND OUT_TIME > 0	");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next() && rs.isLast()) {
-				savedRegNumber = rs.getString(3);
+				savedRegNumber = rs.getString("VEHICLE_REG_NUMBER");
 			} else {
 				System.out.println("table ticket multiple or no entry, ParkingDataBaseIT.testParkingLotExit \n");
 			}
