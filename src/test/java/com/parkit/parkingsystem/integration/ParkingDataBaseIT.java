@@ -52,7 +52,7 @@ public class ParkingDataBaseIT {
 
 	@AfterEach
 	private void cleanDatabase() {
-		dataBasePrepareService.clearDataBaseEntries();
+//		dataBasePrepareService.clearDataBaseEntries();
 	}
 	
 	@AfterAll

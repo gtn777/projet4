@@ -57,5 +57,16 @@ public class ParkingServiceTest {
         parkingService.processExitingVehicle();
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
     }
+    
+    @Test
+    public void processIncomingVehicle() {
+    	when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+    	when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
+    	
+    	parkingService.processIncomingVehicle();
+    	
+    	verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
+    	verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
+    }
 
 }
