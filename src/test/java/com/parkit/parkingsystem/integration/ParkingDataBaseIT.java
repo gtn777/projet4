@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,9 +50,14 @@ public class ParkingDataBaseIT {
 		dataBasePrepareService.clearDataBaseEntries();
 	}
 
+	@AfterEach
+	private void cleanDatabase() {
+		dataBasePrepareService.clearDataBaseEntries();
+	}
+	
 	@AfterAll
 	private static void tearDown() {
-//		dataBasePrepareService.clearDataBaseEntries();
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Test
