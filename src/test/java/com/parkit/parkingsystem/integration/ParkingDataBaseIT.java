@@ -56,7 +56,7 @@ public class ParkingDataBaseIT {
 
 	@AfterEach
 	private void cleanDatabase() {
-		dataBasePrepareService.clearDataBaseEntries();
+//		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterAll
@@ -64,7 +64,7 @@ public class ParkingDataBaseIT {
 //		dataBasePrepareService.clearDataBaseEntries();
 	}
 
-	@Order(2)
+	@Order(1)
 	@Test
 	public void testParkingACar() {
 		System.out.println("test 2");
@@ -92,10 +92,9 @@ public class ParkingDataBaseIT {
 		assertEquals(1, savedUnavailableParkingNumber);
 	}
 
-	@Order(1)
+	@Order(2)
 	@Test
 	public void testParkingLotExit() {
-		System.out.println("test 1");
 		testParkingACar();
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
