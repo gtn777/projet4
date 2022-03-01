@@ -56,7 +56,7 @@ public class ParkingDataBaseIT {
 
 	@AfterEach
 	private void cleanDatabase() {
-//		dataBasePrepareService.clearDataBaseEntries();
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterAll
@@ -64,9 +64,10 @@ public class ParkingDataBaseIT {
 //		dataBasePrepareService.clearDataBaseEntries();
 	}
 
-	@Test
 	@Order(2)
+	@Test
 	public void testParkingACar() {
+		System.out.println("test 2");
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processIncomingVehicle();
 		// TODO: check that a ticket is actually saved in DB and Parking table is
@@ -91,9 +92,10 @@ public class ParkingDataBaseIT {
 		assertEquals(1, savedUnavailableParkingNumber);
 	}
 
-	@Test
 	@Order(1)
+	@Test
 	public void testParkingLotExit() {
+		System.out.println("test 1");
 		testParkingACar();
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
@@ -105,7 +107,7 @@ public class ParkingDataBaseIT {
 			Connection con = dataBaseTestConfig.getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket WHERE PRICE > 0 AND OUT_TIME > 0	");
 			ResultSet rs = ps.executeQuery();
-			if (rs.next() && rs.isLast()) {
+			if (rs.next()) {
 				savedRegNumber = rs.getString("VEHICLE_REG_NUMBER");
 			} else {
 				System.out.println("table ticket multiple or no entry, ParkingDataBaseIT.testParkingLotExit \n");
