@@ -45,33 +45,32 @@ public class ParkingDataBaseIT {
 		ticketDAO = new TicketDAO();
 		ticketDAO.dataBaseConfig = dataBaseTestConfig;
 		dataBasePrepareService = new DataBasePrepareService();
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@BeforeEach
 	private void setUpPerTest() throws Exception {
-		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("pdbIT");
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterEach
 	private void cleanDatabase() {
-//		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterAll
 	private static void tearDown() {
-//		dataBasePrepareService.clearDataBaseEntries();
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)
 	@Test
 	public void testParkingACar() {
-		System.out.println("test 2");
+		// GIVEN
+		when(inputReaderUtil.readSelection()).thenReturn(1);
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processIncomingVehicle();
-		// TODO: check that a ticket is actually saved in DB and Parking table is
-		// updated with availability
+		
+		// WHEN
 		int savedUnavailableParkingNumber = -1;
 		try {
 			Connection con = dataBaseTestConfig.getConnection();
@@ -88,19 +87,18 @@ public class ParkingDataBaseIT {
 		} catch (Exception e) {
 			System.out.println("Error fetching parking table, ParkingDataBaseIT.testParkingCar \n" + e);
 		}
-
+		// THEN
 		assertEquals(1, savedUnavailableParkingNumber);
 	}
 
 	@Order(2)
 	@Test
 	public void testParkingLotExit() {
-		testParkingACar();
+		// GIVEN
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
-		// TODO: check that the fare generated and out time are populated correctly in
-		// the database
-
+		
+		// WHEN
 		String savedRegNumber = "";
 		try {
 			Connection con = dataBaseTestConfig.getConnection();
@@ -118,6 +116,7 @@ public class ParkingDataBaseIT {
 			System.out.println("Error fetching parking ticket, ParkingDataBaseIT.testParkingLotExit \n" + e);
 		}
 
+		// THEN
 		assertEquals("pdbIT", savedRegNumber);
 
 	}
