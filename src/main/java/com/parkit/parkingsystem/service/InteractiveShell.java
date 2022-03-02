@@ -8,45 +8,60 @@ import org.apache.logging.log4j.Logger;
 
 public class InteractiveShell {
 
-    private static final Logger logger = LogManager.getLogger("InteractiveShell");
+	private final Logger logger = LogManager.getLogger("InteractiveShell");
+	private InputReaderUtil inputReaderUtil;
+	private ParkingSpotDAO parkingSpotDAO;
+	private TicketDAO ticketDAO;
+	private ParkingService parkingService;
+	private boolean continueApp = true;
 
-    public static void loadInterface(){
-        logger.info("App initialized!!!");
-        System.out.println("Welcome to Parking System!");
+	public InteractiveShell() {
+		this.inputReaderUtil = new InputReaderUtil();
+		this.parkingSpotDAO = new ParkingSpotDAO();
+		this.ticketDAO = new TicketDAO();
+		this.parkingService = new ParkingService(this.inputReaderUtil, this.parkingSpotDAO, this.ticketDAO);
+	}
 
-        boolean continueApp = true;
-        InputReaderUtil inputReaderUtil = new InputReaderUtil();
-        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
-        TicketDAO ticketDAO = new TicketDAO();
-        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+	public InteractiveShell(ParkingService psv, InputReaderUtil iru) {
+		this.inputReaderUtil = iru;
+		this.parkingService = psv;
+	}
 
-        while(continueApp){
-            loadMenu();
-            int option = inputReaderUtil.readSelection();
-            switch(option){
-                case 1: {
-                    parkingService.processIncomingVehicle();
-                    break;
-                }
-                case 2: {
-                    parkingService.processExitingVehicle();
-                    break;
-                }
-                case 3: {
-                    System.out.println("Exiting from the system!");
-                    continueApp = false;
-                    break;
-                }
-                default: System.out.println("Unsupported option. Please enter a number corresponding to the provided menu");
-            }
-        }
-    }
+	public void loadInterface() {
+		logger.info("App initialized!!!");
+		System.out.println("Welcome to Parking System!");
+		while (this.continueApp) {
+			loadMenu();
+			int option = this.inputReaderUtil.readSelection();
+			switch (option) {
+			case 1: {
+				this.parkingService.processIncomingVehicle();
+				break;
+			}
+			case 2: {
+				this.parkingService.processExitingVehicle();
+				break;
+			}
+			case 3: {
+				System.out.println("Exiting from the system!");
+				this.continueApp = false;
+				break;
+			}
+			default:
+				System.out.println("Unsupported option. Please enter a number corresponding to the provided menu");
+			}
+		}
+	}
 
-    private static void loadMenu(){
-        System.out.println("Please select an option. Simply enter the number to choose an action");
-        System.out.println("1 New Vehicle Entering - Allocate Parking Space");
-        System.out.println("2 Vehicle Exiting - Generate Ticket Price");
-        System.out.println("3 Shutdown System");
-    }
+	private void loadMenu() {
+		System.out.println("Please select an option. Simply enter the number to choose an action");
+		System.out.println("1 New Vehicle Entering - Allocate Parking Space");
+		System.out.println("2 Vehicle Exiting - Generate Ticket Price");
+		System.out.println("3 Shutdown System");
+	}
+	
+	public Boolean isAppRunning() {
+		return this.continueApp;
+	}
 
 }
