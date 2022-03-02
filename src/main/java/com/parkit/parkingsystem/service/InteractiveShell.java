@@ -1,10 +1,11 @@
 package com.parkit.parkingsystem.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class InteractiveShell {
 
@@ -59,7 +60,7 @@ public class InteractiveShell {
 		System.out.println("2 Vehicle Exiting - Generate Ticket Price");
 		System.out.println("3 Shutdown System");
 	}
-	
+
 	public Boolean isAppRunning() {
 		return this.continueApp;
 	}
