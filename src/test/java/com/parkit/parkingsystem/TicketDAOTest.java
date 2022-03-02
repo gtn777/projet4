@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,16 +25,12 @@ class TicketDAOTest {
 	private static final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
 	private static final String vehicleRegNumber = "tdaoT";
 	private static Ticket ticket;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		dataBasePrepareService = new DataBasePrepareService();
 		dataBasePrepareService.clearDataBaseEntries();
 		ticket = new Ticket();
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
@@ -66,18 +61,18 @@ class TicketDAOTest {
 
 	@Test
 	void testToUpdateSavedTicketAndGetIt() {
-		// GIVEN		
+		// GIVEN
 		ticket.setPrice(42);
 		ticket.setOutTime(new Date(System.currentTimeMillis()));
 		ticket.setId(1);
 		Ticket currentSavedTicket = null;
-		
+
 		// WHEN
 		ticketDAO.updateTicket(ticket);
 		currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
-		
+
 		// THEN
-		assertEquals(ticket.getPrice(), currentSavedTicket.getPrice());			
+		assertEquals(ticket.getPrice(), currentSavedTicket.getPrice());
 	}
 
 }
