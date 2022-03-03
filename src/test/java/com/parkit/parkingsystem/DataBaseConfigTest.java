@@ -73,13 +73,17 @@ class DataBaseConfigTest {
 		statement = DBConstants.GET_PARKING_SPOT_QUANTITY;
 
 		// WHEN
+		dataBaseConfig.closeResultSet(rs);
+		dataBaseConfig.closePreparedStatement(ps);
+		dataBaseConfig.closeConnection((con));
 		con = dataBaseConfig.getConnection();
 		ps = con.prepareStatement(statement);
 		rs = ps.executeQuery();
 		if (rs.next())
 			requestResult = rs.getInt(1);
-		dataBaseConfig.closePreparedStatement(ps);
+		dataBaseConfig.closeResultSet(rs);
 		isResultSetClosed = rs.isClosed();
+		dataBaseConfig.closePreparedStatement(ps);
 		isPrepStatementClosed = ps.isClosed();
 		dataBaseConfig.closeConnection(con);
 		isConnectionClosed = con.isClosed();
@@ -89,7 +93,6 @@ class DataBaseConfigTest {
 		assertTrue(isResultSetClosed);
 		assertTrue(isPrepStatementClosed);
 		assertTrue(isConnectionClosed);
-
 	}
 
 }
