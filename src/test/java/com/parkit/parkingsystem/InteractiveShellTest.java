@@ -1,6 +1,7 @@
 package com.parkit.parkingsystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -118,11 +119,11 @@ class InteractiveShellTest {
 	@Order(4)
 	@Test
 	public void productionConstructorTest() {
-		// GIVEN
-		
 		// WHEN
-		
+		InteractiveShell interactiveShell = new InteractiveShell();
+				
 		// THEN
+		assertTrue(interactiveShell.isAppRunning()); 
 	}
 
 }
