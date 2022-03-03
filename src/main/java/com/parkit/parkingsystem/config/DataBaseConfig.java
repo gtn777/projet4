@@ -23,6 +23,7 @@ public class DataBaseConfig {
                 logger.info("Closing DB connection");
             } catch (SQLException e) {
                 logger.error("Error while closing connection",e);
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -34,6 +35,7 @@ public class DataBaseConfig {
                 logger.info("Closing Prepared Statement");
             } catch (SQLException e) {
                 logger.error("Error while closing prepared statement",e);
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -45,6 +47,7 @@ public class DataBaseConfig {
                 logger.info("Closing Result Set");
             } catch (SQLException e) {
                 logger.error("Error while closing result set",e);
+                System.out.println(e.getMessage());
             }
         }
     }

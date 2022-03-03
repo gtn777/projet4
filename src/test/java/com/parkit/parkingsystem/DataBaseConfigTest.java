@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,13 +20,11 @@ import com.parkit.parkingsystem.constants.DBConstants;
 class DataBaseConfigTest {
 
 	private static DataBaseConfig dataBaseConfig;
-	private static final Logger logger = LogManager.getLogger("DataBaseConfig");
 	private static Connection con;
 	private static PreparedStatement ps;
 	private static String statement;
 	private static ResultSet rs;
-	private static Boolean isConnectionClosed;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -41,27 +37,25 @@ class DataBaseConfigTest {
 	void setUp() throws Exception {
 		dataBaseConfig = new DataBaseConfig();
 		con = null;
-		ps=null;
-		rs=null;
+		ps = null;
+		rs = null;
 		statement = null;
-		isConnectionClosed = null;
 	}
-
 
 	@Test
 	void userAccessToSqlDatabaseTest() {
 		// GIVEN
-		Boolean isConnected = null;
-
+		Boolean isConnected = false;
+		Boolean isConnectionClosed = false;
 		// WHEN
 		try {
 			con = dataBaseConfig.getConnection();
-			isConnected = con.isValid(500);
+			isConnected = con.isValid(10);
 			dataBaseConfig.closeConnection(con);
-			isConnectionClosed = !con.isValid(500);
+			isConnectionClosed = !con.isValid(10);
 		} catch (ClassNotFoundException | SQLException e) {
-			logger.error(e.getMessage());
-			logger.error("Access to database impossible, check user access or database existing");
+			System.out.println(e.getMessage());
+			System.out.println("Access to database impossible, check user access or database existing");
 		}
 
 		// THEN
@@ -74,8 +68,8 @@ class DataBaseConfigTest {
 	void sqlRequestStatementTest() throws SQLException, ClassNotFoundException {
 
 		// GIVEN
-		int result = -1;
-		Boolean isResultSetClosed, isPrepStatementClosed = null;
+		int requestResult = -1;
+		Boolean isResultSetClosed, isPrepStatementClosed, isConnectionClosed = false;
 		statement = DBConstants.GET_PARKING_SPOT_QUANTITY;
 
 		// WHEN
@@ -83,20 +77,19 @@ class DataBaseConfigTest {
 		ps = con.prepareStatement(statement);
 		rs = ps.executeQuery();
 		if (rs.next())
-			result = rs.getInt(1);
-		dataBaseConfig.closeResultSet(rs);
-		isResultSetClosed = rs.isClosed();
+			requestResult = rs.getInt(1);
 		dataBaseConfig.closePreparedStatement(ps);
+		isResultSetClosed = rs.isClosed();
 		isPrepStatementClosed = ps.isClosed();
 		dataBaseConfig.closeConnection(con);
 		isConnectionClosed = con.isClosed();
 
 		// THEN
-		assertEquals(5, result);
+		assertEquals(5, requestResult);
 		assertTrue(isResultSetClosed);
 		assertTrue(isPrepStatementClosed);
 		assertTrue(isConnectionClosed);
-		
+
 	}
 
 }
