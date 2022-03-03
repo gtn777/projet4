@@ -16,6 +16,7 @@ public class InteractiveShell {
 	private ParkingService parkingService;
 	private boolean continueApp = true;
 
+	// Constructor for App.java
 	public InteractiveShell() {
 		this.inputReaderUtil = new InputReaderUtil();
 		this.parkingSpotDAO = new ParkingSpotDAO();
@@ -23,9 +24,12 @@ public class InteractiveShell {
 		this.parkingService = new ParkingService(this.inputReaderUtil, this.parkingSpotDAO, this.ticketDAO);
 	}
 
-	public InteractiveShell(ParkingService psv, InputReaderUtil iru) {
+	// Constructor for InteractiveShellTest
+	public InteractiveShell(ParkingService psv, InputReaderUtil iru, ParkingSpotDAO psdao, TicketDAO tdao) {
 		this.inputReaderUtil = iru;
 		this.parkingService = psv;
+		this.parkingSpotDAO = psdao;
+		this.ticketDAO = tdao;
 	}
 
 	public void loadInterface() {

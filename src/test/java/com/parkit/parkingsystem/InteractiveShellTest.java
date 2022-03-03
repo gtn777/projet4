@@ -8,7 +8,10 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -25,6 +28,7 @@ import com.parkit.parkingsystem.service.InteractiveShell;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+@TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class InteractiveShellTest {
@@ -32,16 +36,18 @@ class InteractiveShellTest {
 	private InteractiveShell interactiveShell;
 
 	@Mock
-	private ParkingService parkingService;
+	private static ParkingService parkingService;
 	@Mock
-	private InputReaderUtil inputReaderUtil;
+	private static InputReaderUtil inputReaderUtil;
 	@Mock
-	private ParkingSpotDAO parkingSpotDAO;
+	private static ParkingSpotDAO parkingSpotDAO;
 	@Mock
-	private TicketDAO ticketDAO;
+	private static TicketDAO ticketDAO;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		// Those mocks are send in parameters to InteractiveShell,
+		// for secure the production database during tests
 		when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
 		when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
 		when(ticketDAO.getTicket(any(String.class))).thenReturn(null);
@@ -51,7 +57,6 @@ class InteractiveShellTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		parkingService = null;
 		interactiveShell = null;
 	}
 
@@ -59,15 +64,15 @@ class InteractiveShellTest {
 	static void tearDownAfterClass() throws Exception {
 	}
 
+	@Order(1)
 	@Test
 	public void startAndExitApplicationTest() {
 
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(3);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
 		// WHEN
-		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil);
+		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil, parkingSpotDAO, ticketDAO);
 		Boolean isAppstarted = interactiveShell.isAppRunning();
 		interactiveShell.loadInterface();
 
@@ -77,15 +82,15 @@ class InteractiveShellTest {
 		assertEquals(false, interactiveShell.isAppRunning());
 	}
 
+	@Order(2)
 	@Test
 	public void optionOneThenUnsupportedOption() {
 
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1, 5, 3);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
 		// WHEN
-		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil);
+		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil, parkingSpotDAO, ticketDAO);
 		interactiveShell.loadInterface();
 
 		// THEN
@@ -94,21 +99,30 @@ class InteractiveShellTest {
 		assertEquals(false, interactiveShell.isAppRunning());
 	}
 
+	@Order(3)
 	@Test
-	public void optionTwoThenBadRegistrationEntry() {
+	public void optionTwoThenBadEntry() {
 
 		// GIVEN
-		when(inputReaderUtil.readSelection()).thenReturn(2, 123, 3);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		when(inputReaderUtil.readSelection()).thenReturn(2, 42, 3);
 
 		// WHEN
-		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil);
+		interactiveShell = new InteractiveShell(parkingService, inputReaderUtil, parkingSpotDAO, ticketDAO);
 		interactiveShell.loadInterface();
 
 		// THEN
 		verify(parkingService, Mockito.times(1)).processExitingVehicle();
-		verify(ticketDAO, Mockito.times(1)).getTicket(any(String.class));
 		assertEquals(false, interactiveShell.isAppRunning());
+	}
+	
+	@Order(4)
+	@Test
+	public void productionConstructorTest() {
+		// GIVEN
+		
+		// WHEN
+		
+		// THEN
 	}
 
 }
