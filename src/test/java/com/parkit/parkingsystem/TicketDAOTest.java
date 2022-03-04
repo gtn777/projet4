@@ -74,5 +74,5 @@ class TicketDAOTest {
 		// THEN
 		assertEquals(ticket.getPrice(), currentSavedTicket.getPrice());
 	}
-
+	
 }
