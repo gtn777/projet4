@@ -17,7 +17,7 @@ public class DiscountService {
 	}
 
 	private boolean isUserEverEntered(Ticket ticketToCheck) {
-		return ticketDAO.isUserEverEnteredAndExit(ticketToCheck.getVehicleRegNumber());
+		return ticketDAO.isUserEverEntered(ticketToCheck.getVehicleRegNumber());
 	}
 
 	public TicketDAO getTicketDao() {

@@ -18,7 +18,7 @@ public class TicketDAO {
 
 	private static final Logger logger = LogManager.getLogger("TicketDAO");
 
-	public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
 	public boolean saveTicket(Ticket ticket) {
 		Connection con = null;
@@ -34,7 +34,7 @@ public class TicketDAO {
 			ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (new Timestamp(ticket.getOutTime().getTime())));
 			return ps.execute();
 		} catch (Exception ex) {
-			logger.error("Error fetching next available slot", ex);
+			logger.error("Error saving ticket", ex);
 		} finally {
 			dataBaseConfig.closeConnection(con);
 		}
@@ -64,7 +64,7 @@ public class TicketDAO {
 			dataBaseConfig.closePreparedStatement(ps);
 			return ticket;
 		} catch (Exception ex) {
-			logger.error("Error fetching next available slot", ex);
+			logger.error("Error fetching ticket", ex);
 			return null;
 		} finally {
 			dataBaseConfig.closeConnection(con);
@@ -89,7 +89,7 @@ public class TicketDAO {
 		return false;
 	}
 
-	public boolean isUserEverEnteredAndExit(String vehicleRegNumber) {
+	public boolean isUserEverEntered(String vehicleRegNumber) {
 		Connection con = null;
 		try {
 			con = dataBaseConfig.getConnection();
@@ -97,7 +97,7 @@ public class TicketDAO {
 			// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
 			ps.setString(1, vehicleRegNumber);
 			ResultSet rs = ps.executeQuery();
-			if (rs.getRow() == 2) {
+			if (rs.next() && !rs.isLast()) {
 				dataBaseConfig.closePreparedStatement(ps);
 				return true;
 			} else {
@@ -105,11 +105,19 @@ public class TicketDAO {
 				return false;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  finally {
+			logger.error("Error fetching data", e);
+		} finally {
 			dataBaseConfig.closeConnection(con);
 		}
 		return false;
+	}
+
+	public boolean setDataBaseConfig(DataBaseConfig dbc) {
+		this.dataBaseConfig = dbc;
+		return this.dataBaseConfig == dbc ? true : false;
+	}
+
+	public DataBaseConfig getDataBaseConfig() {
+		return this.dataBaseConfig;
 	}
 }
