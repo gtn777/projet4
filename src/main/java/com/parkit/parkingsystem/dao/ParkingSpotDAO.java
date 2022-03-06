@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 public class ParkingSpotDAO {
     private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
-    public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+    private DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     public int getNextAvailableSlot(ParkingType parkingType){
         Connection con = null;
@@ -55,5 +55,14 @@ public class ParkingSpotDAO {
             dataBaseConfig.closeConnection(con);
         }
     }
+    
+    public boolean setDataBaseConfig(DataBaseConfig dbc) {
+		this.dataBaseConfig = dbc;
+		return this.dataBaseConfig == dbc ? true : false;
+	}
+	
+	public DataBaseConfig getDataBaseConfig() {
+		return this.dataBaseConfig;
+	}
 
 }

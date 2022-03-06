@@ -1,12 +1,12 @@
 package com.parkit.parkingsystem.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
@@ -31,38 +32,39 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
-	private static ParkingService parkingService = null;
-	private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private static ParkingService parkingService;
 	private static ParkingSpotDAO parkingSpotDAO;
 	private static TicketDAO ticketDAO;
-	private static DataBasePrepareService dataBasePrepareService;
 	private static Connection con;
 	private static PreparedStatement ps;
 	private static ResultSet rs;
+	private static final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private static final String vehicleRegNumber = "tdaoT";
 
 	@Mock
 	private static InputReaderUtil inputReaderUtil;
 
 	@BeforeAll
 	private static void setUp() throws Exception {
-		dataBasePrepareService = new DataBasePrepareService();
-		parkingSpotDAO = new ParkingSpotDAO();
-		parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
-		ticketDAO = new TicketDAO();
-		ticketDAO.dataBaseConfig = dataBaseTestConfig;
 	}
 
 	@BeforeEach
 	private void setUpPerTest() throws Exception {
 		dataBasePrepareService.clearDataBaseEntries();
-		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("pdbIT");
+		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn(vehicleRegNumber);
+		parkingSpotDAO = new ParkingSpotDAO();
+		parkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
+		ticketDAO = new TicketDAO();
+		ticketDAO.setDataBaseConfig(dataBaseTestConfig);
 		con = null;
 		ps = null;
 		rs = null;
+		parkingService = null;
 	}
 
 	@AfterEach
-	private void cleanDatabase() {
+	private void cleanConnection() {
 		dataBaseTestConfig.closeResultSet(rs);
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
@@ -70,14 +72,15 @@ public class ParkingDataBaseIT {
 
 	@AfterAll
 	private static void tearDown() {
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)
 	@Test
-	public void testParkingACar() throws ClassNotFoundException, SQLException {
+	public void testParkingABike() throws Exception {
 		// GIVEN
-		when(inputReaderUtil.readSelection()).thenReturn(1);
-		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		when(inputReaderUtil.readSelection()).thenReturn(2);
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processIncomingVehicle();
 
 		// WHEN
@@ -85,30 +88,32 @@ public class ParkingDataBaseIT {
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT * FROM parking WHERE AVAILABLE = 0");
 		rs = ps.executeQuery();
-		// Checks if result contains only 1 row
 		if (rs.next() && rs.isLast()) {
 			savedUnavailableParkingNumber = rs.getInt(1);
 		} else {
-			System.out.println("table parking multiple or no entry, ParkingDataBaseIT.testParkingACAR \n");
+			System.out.println("not available parking spot multiple or no entry, ParkingDataBaseIT.testParkingACAR \n");
 		}
+
 		// THEN
-		// Checks if there is only one occupied parking slot
-		// and that it has the identification number 1.
-		assertEquals(1, savedUnavailableParkingNumber);
+		verify(inputReaderUtil, Mockito.times(1)).readSelection();
+		verify(inputReaderUtil, Mockito.times(1)).readVehicleRegistrationNumber();
+		assertEquals(4, savedUnavailableParkingNumber); // check if first bike spot is not available
 	}
 
 	@Order(2)
 	@Test
-	public void testParkingLotExit() throws ClassNotFoundException, SQLException, InterruptedException {
+	public void testParkingLotExit() throws Exception {
 		// GIVEN
-		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		testParkingABike();
+		Thread.sleep(400);
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
+
 		// WHEN
 		int availableParkingSlotQuantity = -1;
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT COUNT(*) FROM parking WHERE AVAILABLE = 1");
 		rs = ps.executeQuery();
-		System.out.println(rs);
 		if (rs.next()) {
 			availableParkingSlotQuantity = rs.getInt(1);
 		} else {
@@ -116,8 +121,9 @@ public class ParkingDataBaseIT {
 		}
 
 		// THEN
-		// Check if all parking slot are available
-		assertEquals(5, availableParkingSlotQuantity);
+		verify(inputReaderUtil, Mockito.times(1)).readSelection();
+		verify(inputReaderUtil, Mockito.times(2)).readVehicleRegistrationNumber();
+		assertEquals(5, availableParkingSlotQuantity);// Check if all parking slot are available after exiting vehicle;
 	}
 
 }

@@ -62,14 +62,14 @@ class DiscountServiceTest {
 		duration = discountService.applyDiscount(ticket, duration);
 
 		// THEN
-		verify(ticketDAO, Mockito.times(0)).isUserEverEnteredAndExit(any(String.class));
+		verify(ticketDAO, Mockito.times(0)).isUserEverEntered(any(String.class));
 		assertEquals(0, duration);
 	}
 
 	@Test
 	void unknownUser31MinutesDiscountTest() {
 		// GIVEN
-		when(ticketDAO.isUserEverEnteredAndExit(VEHICLE_REG)).thenReturn(false);
+		when(ticketDAO.isUserEverEntered(VEHICLE_REG)).thenReturn(false);
 		discountService.setTicketDAO(ticketDAO);
 		long duration = 1860000;
 
@@ -77,14 +77,14 @@ class DiscountServiceTest {
 		duration = discountService.applyDiscount(ticket, duration);
 
 		// THEN
-		verify(ticketDAO, Mockito.times(1)).isUserEverEnteredAndExit(any(String.class));
+		verify(ticketDAO, Mockito.times(1)).isUserEverEntered(any(String.class));
 		assertEquals(1860000, duration);
 	}
 
 	@Test
 	void unknownUser10hoursDiscountTest() {
 		// GIVEN
-		when(ticketDAO.isUserEverEnteredAndExit(VEHICLE_REG)).thenReturn(false);
+		when(ticketDAO.isUserEverEntered(VEHICLE_REG)).thenReturn(false);
 		discountService.setTicketDAO(ticketDAO);
 		long duration = 36000000;
 
@@ -92,7 +92,7 @@ class DiscountServiceTest {
 		duration = discountService.applyDiscount(ticket, duration);
 
 		// THEN
-		verify(ticketDAO, Mockito.times(1)).isUserEverEnteredAndExit(any(String.class));
+		verify(ticketDAO, Mockito.times(1)).isUserEverEntered(any(String.class));
 		assertEquals(36000000, duration);
 	}
 
@@ -106,14 +106,14 @@ class DiscountServiceTest {
 		duration = discountService.applyDiscount(ticket, duration);
 
 		// THEN
-		verify(ticketDAO, Mockito.times(0)).isUserEverEnteredAndExit(any(String.class));
+		verify(ticketDAO, Mockito.times(0)).isUserEverEntered(any(String.class));
 		assertEquals(0, duration);
 	}
 
 	@Test
 	void knownUser10HoursDiscountTest() {
 		// GIVEN
-		when(ticketDAO.isUserEverEnteredAndExit(VEHICLE_REG)).thenReturn(true);
+		when(ticketDAO.isUserEverEntered(VEHICLE_REG)).thenReturn(true);
 		discountService.setTicketDAO(ticketDAO);
 		long duration = 36000000;
 
@@ -121,7 +121,7 @@ class DiscountServiceTest {
 		duration = discountService.applyDiscount(ticket, duration);
 
 		// THEN
-		verify(ticketDAO, Mockito.times(1)).isUserEverEnteredAndExit(any(String.class));
+		verify(ticketDAO, Mockito.times(1)).isUserEverEntered(any(String.class));
 		assertEquals(34285714, duration);
 	}
 	
