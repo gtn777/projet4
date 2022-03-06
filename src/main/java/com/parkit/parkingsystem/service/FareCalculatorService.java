@@ -4,6 +4,7 @@ import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
+	private static DiscountService discountService;
 
 	public void calculateFare(Ticket ticket) {
 
@@ -17,10 +18,9 @@ public class FareCalculatorService {
 		long inMilliseconds = ticket.getInTime().getTime();
 		long outMilliseconds = ticket.getOutTime().getTime();
 
-		// TODO: Some tests are failing here. Need to check if this logic is correct
-		// DONE
 		long duration = (outMilliseconds - inMilliseconds);
-
+		duration = discountService.applyDiscount(ticket, duration);
+		
 		switch (ticket.getParkingSpot().getParkingType()) {
 		case CAR: {
 			ticket.setPrice(duration * (Fare.CAR_RATE_PER_HOUR) / 3600000);
