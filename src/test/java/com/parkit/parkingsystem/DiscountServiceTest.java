@@ -25,10 +25,10 @@ class DiscountServiceTest {
 	private static DiscountService discountService;
 	private static Ticket ticket;
 	private static final String VEHICLE_REG = "dsT";
-	
+
 	@Mock
 	private static TicketDAO ticketDAO;
-	
+
 	@BeforeAll
 	private static void setUpBeforeClass() throws Exception {
 	}
@@ -39,7 +39,7 @@ class DiscountServiceTest {
 
 	@BeforeEach
 	private void setUp() throws Exception {
-		
+
 //		when(ticketDAO.saveTicket(anyTicket)).thenReturn(false);
 //		when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
 		discountService = new DiscountService();
@@ -124,5 +124,5 @@ class DiscountServiceTest {
 		verify(ticketDAO, Mockito.times(1)).isUserEverEntered(any(String.class));
 		assertEquals(34285714, duration);
 	}
-	
+
 }
