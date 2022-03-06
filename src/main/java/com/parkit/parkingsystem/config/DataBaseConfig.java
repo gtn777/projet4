@@ -1,9 +1,13 @@
 package com.parkit.parkingsystem.config;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.sql.*;
 
 public class DataBaseConfig {
 
@@ -19,7 +23,7 @@ public class DataBaseConfig {
     public void closeConnection(Connection con){
         if(con!=null){
             try {
-                con.close();
+				con.close();
                 logger.info("Closing DB connection");
             } catch (SQLException e) {
                 logger.error("Error while closing connection",e);
