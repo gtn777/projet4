@@ -25,10 +25,10 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 @ExtendWith(MockitoExtension.class)
 class ParkingSpotDAOTest {
 
-	private static ParkingSpotDAO parkingSpotDAO;
-	private static DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
-	private static ParkingSpot parkingSpot;
-	private static DataBaseConfig dataBaseConfig = new DataBaseTestConfig();
+	private ParkingSpotDAO parkingSpotDAO;
+	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private ParkingSpot parkingSpot;
+	private DataBaseConfig dataBaseConfig = new DataBaseTestConfig();
 
 	@Mock
 	private DataBaseConfig dataBaseConfigMock = new DataBaseTestConfig();
@@ -39,11 +39,11 @@ class ParkingSpotDAOTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
+		dataBasePrepareService.clearDataBaseEntries();
 		parkingSpotDAO = new ParkingSpotDAO();
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfig);
 		dataBasePrepareService.clearDataBaseEntries();
@@ -57,16 +57,16 @@ class ParkingSpotDAOTest {
 	void processSetDataBaseConfig_andGetIt() {
 		// GIVEN
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
-		
+
 		// WHEN
 		DataBaseConfig settedDBConfig = parkingSpotDAO.getDataBaseConfig();
-		
+
 		// THEN
 		assertEquals(dataBaseConfigMock, settedDBConfig);
 	}
-	
+
 	@Test
-	void processGetNextAvailableSpot_Bike() throws Exception {		
+	void processGetNextAvailableSpot_Bike() throws Exception {
 		// WHEN
 		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE);
 
@@ -90,9 +90,6 @@ class ParkingSpotDAOTest {
 
 	@Test
 	void processGetNextAvailableSpot_vehicleTypeUnknown() {
-		// GIVEN
-		ParkingType parkingType = ParkingType.TEST;
-
 		// WHEN
 		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.TEST);
 

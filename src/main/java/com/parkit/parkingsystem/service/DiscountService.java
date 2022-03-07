@@ -5,7 +5,7 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class DiscountService {
 
-	private static TicketDAO ticketDAO;
+	private TicketDAO ticketDAO;
 
 	public long applyDiscount(Ticket ticket, long duration) {
 		if (duration < 1800000) {
@@ -25,7 +25,7 @@ public class DiscountService {
 	}
 
 	public void setTicketDAO(TicketDAO tdao) {
-		ticketDAO = tdao;
+		this.ticketDAO = tdao;
 	}
 
 }

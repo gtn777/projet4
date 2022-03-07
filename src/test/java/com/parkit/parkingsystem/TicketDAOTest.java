@@ -25,21 +25,20 @@ import com.parkit.parkingsystem.model.Ticket;
 @TestMethodOrder(OrderAnnotation.class)
 class TicketDAOTest {
 
-	private static TicketDAO ticketDAO;
-	private static final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
-	private static DataBasePrepareService dataBasePrepareService;
-	private static final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
+	private TicketDAO ticketDAO;
+	private final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
 	private static final String vehicleRegNumber = "tdaoT";
-	private static Ticket ticket;
+	private Ticket ticket;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		dataBasePrepareService = new DataBasePrepareService();
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
+		dataBasePrepareService.clearDataBaseEntries();
 		ticketDAO = new TicketDAO();
 		ticketDAO.setDataBaseConfig(dataBaseTestConfig);
 		ticket = new Ticket();

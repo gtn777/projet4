@@ -32,18 +32,18 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
-	private static ParkingService parkingService;
-	private static ParkingSpotDAO parkingSpotDAO;
-	private static TicketDAO ticketDAO;
-	private static Connection con;
-	private static PreparedStatement ps;
-	private static ResultSet rs;
-	private static final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
-	private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-	private static final String vehicleRegNumber = "tdaoT";
+	private ParkingService parkingService;
+	private ParkingSpotDAO parkingSpotDAO;
+	private TicketDAO ticketDAO;
+	private Connection con;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private final String vehicleRegNumber = "tdaoT";
 
 	@Mock
-	private static InputReaderUtil inputReaderUtil;
+	private InputReaderUtil inputReaderUtil;
 
 	@BeforeAll
 	private static void setUp() throws Exception {
@@ -68,11 +68,11 @@ public class ParkingDataBaseIT {
 		dataBaseTestConfig.closeResultSet(rs);
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterAll
 	private static void tearDown() {
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)

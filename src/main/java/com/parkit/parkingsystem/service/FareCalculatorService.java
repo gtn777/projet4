@@ -19,7 +19,7 @@ public class FareCalculatorService {
 		long outMilliseconds = ticket.getOutTime().getTime();
 
 		long duration = (outMilliseconds - inMilliseconds);
-		duration = discountService.applyDiscount(ticket, duration);
+//		duration = discountService.applyDiscount(ticket, duration);
 		
 		switch (ticket.getParkingSpot().getParkingType()) {
 		case CAR: {

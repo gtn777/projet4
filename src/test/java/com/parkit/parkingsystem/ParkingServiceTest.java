@@ -31,26 +31,27 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
 
-	private static ParkingService parkingService;
-	private static Ticket ticket;
+	private ParkingService parkingService;
+	private Ticket ticket;
+
 	@Mock
-	private static InputReaderUtil inputReaderUtil;
+	private InputReaderUtil inputReaderUtil;
 	@Mock
-	private static ParkingSpotDAO parkingSpotDAO;
+	private ParkingSpotDAO parkingSpotDAO;
 	@Mock
-	private static TicketDAO ticketDAO;
+	private TicketDAO ticketDAO;
 
 	@BeforeAll
 	private static void setUp() throws Exception {
+	}
+
+	@BeforeEach
+	private void setUpPerTest() throws Exception {
 		ticket = new Ticket();
 		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber("ABCDEF");
-	}
-
-	@BeforeEach
-	private void setUpPerTest() throws Exception {
 	}
 
 	@Order(1)
@@ -73,7 +74,7 @@ public class ParkingServiceTest {
 
 	@Order(2)
 	@Test
-	public void processIncomingVehicleWithRecurrentUser() throws Exception{
+	public void processIncomingVehicleWithRecurrentUser() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
@@ -108,7 +109,7 @@ public class ParkingServiceTest {
 		// WHEN
 		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.getNextParkingNumberIfAvailable();
-		
+
 		// THEN
 		verify(inputReaderUtil, Mockito.times(1)).readSelection();
 		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any());

@@ -19,11 +19,11 @@ import com.parkit.parkingsystem.constants.DBConstants;
 
 class DataBaseConfigTest {
 
-	private static DataBaseConfig dataBaseConfig;
-	private static Connection con;
-	private static PreparedStatement ps;
-	private static String statement;
-	private static ResultSet rs;
+	private DataBaseConfig dataBaseConfig;
+	private Connection con;
+	private PreparedStatement ps;
+	private String statement;
+	private ResultSet rs;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {

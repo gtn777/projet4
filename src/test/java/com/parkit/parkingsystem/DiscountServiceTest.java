@@ -22,8 +22,8 @@ import com.parkit.parkingsystem.service.DiscountService;
 @ExtendWith(MockitoExtension.class)
 class DiscountServiceTest {
 
-	private static DiscountService discountService;
-	private static Ticket ticket;
+	private  DiscountService discountService;
+	private  Ticket ticket;
 	private static final String VEHICLE_REG = "dsT";
 
 	@Mock
