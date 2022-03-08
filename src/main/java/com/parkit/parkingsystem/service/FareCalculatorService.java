@@ -8,11 +8,11 @@ public class FareCalculatorService {
 
 	public void calculateFare(Ticket ticket, TicketDAO ticketDAO) {
 
+		if (ticket.getOutTime() == null) {
+			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
+		}
 		if (ticket.getOutTime().before(ticket.getInTime())) {
 			throw new IllegalArgumentException("Out time provided is before in time:" + ticket.getOutTime().toString());
-		}
-		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
-			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
 		}
 
 		long inMilliseconds = ticket.getInTime().getTime();
