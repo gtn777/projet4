@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -40,10 +39,6 @@ public class ParkingServiceTest {
 	private ParkingSpotDAO parkingSpotDAO;
 	@Mock
 	private TicketDAO ticketDAO;
-
-	@BeforeAll
-	private static void setUp() throws Exception {
-	}
 
 	@BeforeEach
 	private void setUpPerTest() throws Exception {

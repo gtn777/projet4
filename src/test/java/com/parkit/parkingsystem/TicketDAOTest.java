@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -32,10 +30,6 @@ class TicketDAOTest {
 	private static final String vehicleRegNumber = "tdaoT";
 	private Ticket ticket;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
 	@BeforeEach
 	void setUp() throws Exception {
 		dataBasePrepareService.clearDataBaseEntries();
@@ -47,10 +41,6 @@ class TicketDAOTest {
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
 		ticket.setPrice(5);
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Order(1)

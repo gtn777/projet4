@@ -25,14 +25,6 @@ class DataBaseConfigTest {
 	private String statement;
 	private ResultSet rs;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
 	@BeforeEach
 	void setUp() throws Exception {
 		dataBaseConfig = new DataBaseConfig();

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,10 +32,6 @@ public class FareCalculatorServiceTest {
 
 	@Mock
 	private TicketDAO ticketDAO;
-
-	@BeforeAll
-	private static void setUp() {
-	}
 
 	@BeforeEach
 	private void setUpPerTest() {

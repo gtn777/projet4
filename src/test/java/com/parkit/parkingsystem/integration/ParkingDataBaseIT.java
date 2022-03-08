@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -44,10 +43,6 @@ public class ParkingDataBaseIT {
 
 	@Mock
 	private InputReaderUtil inputReaderUtil;
-
-	@BeforeAll
-	private static void setUp() throws Exception {
-	}
 
 	@BeforeEach
 	private void setUpPerTest() throws Exception {

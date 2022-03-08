@@ -1,4 +1,6 @@
 /spotbugsReporting/
+/src/main/java/com/parkit/parkingsystem/config/DBConfigData.java
+/src/test/java/com/parkit/parkingsystem/integration/config/DBTestConfigData.java
 
 /target/
 
