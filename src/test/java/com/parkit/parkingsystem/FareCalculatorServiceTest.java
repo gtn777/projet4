@@ -29,7 +29,7 @@ public class FareCalculatorServiceTest {
 
 	private FareCalculatorService fareCalculatorService = new FareCalculatorService();
 	private Ticket ticket;
-	private final String vehicleRegNumber = "fcsT";
+	private static final String vehicleRegNumber = "fcsT";
 
 	@Mock
 	private TicketDAO ticketDAO;

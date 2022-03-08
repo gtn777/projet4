@@ -40,7 +40,7 @@ public class ParkingDataBaseIT {
 	private ResultSet rs;
 	private final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-	private final String vehicleRegNumber = "tdaoT";
+	private static final String vehicleRegNumber = "tdaoT";
 
 	@Mock
 	private InputReaderUtil inputReaderUtil;

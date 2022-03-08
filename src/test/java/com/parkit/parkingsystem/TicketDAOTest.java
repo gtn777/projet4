@@ -29,7 +29,7 @@ class TicketDAOTest {
 	private final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
-	private final String vehicleRegNumber = "tdaoT";
+	private static final String vehicleRegNumber = "tdaoT";
 	private Ticket ticket;
 
 	@BeforeAll
@@ -72,14 +72,12 @@ class TicketDAOTest {
 		ticket.setPrice(42);
 		ticket.setOutTime(new Date(System.currentTimeMillis()));
 		ticket.setId(1);
-		Ticket currentSavedTicket = new Ticket();
 
 		// WHEN
 		ticketDAO.updateTicket(ticket);
-		currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
 		// THEN
-		assertEquals(42, currentSavedTicket.getPrice());
+		assertEquals(42, ticketDAO.getTicket(vehicleRegNumber).getPrice());
 	}
 
 	@Order(3)
