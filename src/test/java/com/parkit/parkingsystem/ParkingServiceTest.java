@@ -139,6 +139,7 @@ public class ParkingServiceTest {
 	@Order(5)
 	@Test
 	public void processExitingVehicleTest_withTicketUpdateFaulty() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 		when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
 		when(ticketDAO.updateTicket(any())).thenReturn(false);

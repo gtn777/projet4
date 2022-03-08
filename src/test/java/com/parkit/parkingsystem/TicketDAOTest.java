@@ -29,7 +29,7 @@ class TicketDAOTest {
 	private final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
-	private static final String vehicleRegNumber = "tdaoT";
+	private final String vehicleRegNumber = "tdaoT";
 	private Ticket ticket;
 
 	@BeforeAll
@@ -46,6 +46,7 @@ class TicketDAOTest {
 		ticket.setInTime(inTime);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
+		ticket.setPrice(5);
 	}
 
 	@AfterEach
@@ -67,25 +68,23 @@ class TicketDAOTest {
 	@Test
 	void testToUpdateSavedTicketAndGetIt() {
 		// GIVEN
+		ticketDAO.saveTicket(ticket);
 		ticket.setPrice(42);
 		ticket.setOutTime(new Date(System.currentTimeMillis()));
 		ticket.setId(1);
-		Ticket currentSavedTicket = null;
+		Ticket currentSavedTicket = new Ticket();
 
 		// WHEN
 		ticketDAO.updateTicket(ticket);
 		currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
 		// THEN
-		assertEquals(ticket.getPrice(), currentSavedTicket.getPrice());
+		assertEquals(42, currentSavedTicket.getPrice());
 	}
 
 	@Order(3)
 	@Test
 	void testIsUserEverEntered_unknownUser() {
-		// GIVEN
-		dataBasePrepareService.clearDataBaseEntries();
-
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 
@@ -96,9 +95,6 @@ class TicketDAOTest {
 	@Order(4)
 	@Test
 	void testIsUserEverEntered_knownUser() {
-		// GIVEN
-		dataBasePrepareService.clearDataBaseEntries();
-
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 		ticketDAO.saveTicket(ticket);
