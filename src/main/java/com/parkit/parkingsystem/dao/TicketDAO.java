@@ -35,8 +35,10 @@ public class TicketDAO {
 			ps.setTimestamp(4, new Timestamp(ticket.getInTime().getTime()));
 			ps.setTimestamp(5, (ticket.getOutTime() == null) ? null : (new Timestamp(ticket.getOutTime().getTime())));
 			return ps.execute();
-		} catch (Exception ex) {
-			logger.error("Error saving ticket", ex);
+		} catch (ClassNotFoundException ex) {
+			logger.error("Error saving ticket, ClassNotFoundException", ex.getMessage());
+		} catch (SQLException e) {
+			logger.error("Error saving ticket, SQLException", e.getMessage());
 		} finally {
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
@@ -67,8 +69,11 @@ public class TicketDAO {
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
 			return ticket;
-		} catch (Exception ex) {
-			logger.error("Error fetching ticket", ex);
+		} catch (SQLException ex) {
+			logger.error("Error fetching ticket", ex.getMessage());
+			return null;
+		} catch (ClassNotFoundException e) {
+			logger.error("Error fetching ticket", e.getMessage());
 			return null;
 		} finally {
 			dataBaseConfig.closePreparedStatement(ps);

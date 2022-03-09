@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +17,7 @@ import com.parkit.parkingsystem.constants.DBConstants;
 
 class DataBaseConfigTest {
 
-	private DataBaseConfig dataBaseConfig;
+	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
 	private Connection con;
 	private PreparedStatement ps;
 	private String statement;
@@ -27,7 +25,6 @@ class DataBaseConfigTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		dataBaseConfig = new DataBaseConfig();
 		con = null;
 		ps = null;
 		rs = null;
@@ -61,7 +58,7 @@ class DataBaseConfigTest {
 
 		// GIVEN
 		int requestResult = -1;
-		Boolean isResultSetClosed, isPrepStatementClosed, isConnectionClosed = false;
+		Boolean isResultSetClosed, isPrepStatementClosed, isConnectionClosed;
 		statement = DBConstants.GET_PARKING_SPOT_QUANTITY;
 
 		// WHEN
