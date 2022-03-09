@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -25,21 +23,16 @@ import com.parkit.parkingsystem.model.Ticket;
 @TestMethodOrder(OrderAnnotation.class)
 class TicketDAOTest {
 
-	private static TicketDAO ticketDAO;
-	private static final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
-	private static DataBasePrepareService dataBasePrepareService;
-	private static final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
+	private TicketDAO ticketDAO;
+	private final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
 	private static final String vehicleRegNumber = "tdaoT";
-	private static Ticket ticket;
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		dataBasePrepareService = new DataBasePrepareService();
-		dataBasePrepareService.clearDataBaseEntries();
-	}
+	private Ticket ticket;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		dataBasePrepareService.clearDataBaseEntries();
 		ticketDAO = new TicketDAO();
 		ticketDAO.setDataBaseConfig(dataBaseTestConfig);
 		ticket = new Ticket();
@@ -47,10 +40,7 @@ class TicketDAOTest {
 		ticket.setInTime(inTime);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+		ticket.setPrice(5);
 	}
 
 	@Order(1)
@@ -68,25 +58,21 @@ class TicketDAOTest {
 	@Test
 	void testToUpdateSavedTicketAndGetIt() {
 		// GIVEN
+		ticketDAO.saveTicket(ticket);
 		ticket.setPrice(42);
 		ticket.setOutTime(new Date(System.currentTimeMillis()));
 		ticket.setId(1);
-		Ticket currentSavedTicket = null;
 
 		// WHEN
 		ticketDAO.updateTicket(ticket);
-		currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
 		// THEN
-		assertEquals(ticket.getPrice(), currentSavedTicket.getPrice());
+		assertEquals(42, ticketDAO.getTicket(vehicleRegNumber).getPrice());
 	}
 
 	@Order(3)
 	@Test
 	void testIsUserEverEntered_unknownUser() {
-		// GIVEN
-		dataBasePrepareService.clearDataBaseEntries();
-
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 
@@ -97,9 +83,6 @@ class TicketDAOTest {
 	@Order(4)
 	@Test
 	void testIsUserEverEntered_knownUser() {
-		// GIVEN
-		dataBasePrepareService.clearDataBaseEntries();
-
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 		ticketDAO.saveTicket(ticket);

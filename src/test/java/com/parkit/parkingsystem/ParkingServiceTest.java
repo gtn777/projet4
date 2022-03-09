@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -31,26 +30,23 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
 
-	private static ParkingService parkingService;
-	private static Ticket ticket;
-	@Mock
-	private static InputReaderUtil inputReaderUtil;
-	@Mock
-	private static ParkingSpotDAO parkingSpotDAO;
-	@Mock
-	private static TicketDAO ticketDAO;
+	private ParkingService parkingService;
+	private Ticket ticket;
 
-	@BeforeAll
-	private static void setUp() throws Exception {
+	@Mock
+	private InputReaderUtil inputReaderUtil;
+	@Mock
+	private ParkingSpotDAO parkingSpotDAO;
+	@Mock
+	private TicketDAO ticketDAO;
+
+	@BeforeEach
+	private void setUpPerTest() throws Exception {
 		ticket = new Ticket();
 		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber("ABCDEF");
-	}
-
-	@BeforeEach
-	private void setUpPerTest() throws Exception {
 	}
 
 	@Order(1)
@@ -73,7 +69,7 @@ public class ParkingServiceTest {
 
 	@Order(2)
 	@Test
-	public void processIncomingVehicleWithRecurrentUser() throws Exception{
+	public void processIncomingVehicleWithRecurrentUser() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
@@ -108,7 +104,7 @@ public class ParkingServiceTest {
 		// WHEN
 		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.getNextParkingNumberIfAvailable();
-		
+
 		// THEN
 		verify(inputReaderUtil, Mockito.times(1)).readSelection();
 		verify(parkingSpotDAO, Mockito.times(1)).getNextAvailableSlot(any());
@@ -138,6 +134,7 @@ public class ParkingServiceTest {
 	@Order(5)
 	@Test
 	public void processExitingVehicleTest_withTicketUpdateFaulty() throws Exception {
+		// GIVEN
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 		when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
 		when(ticketDAO.updateTicket(any())).thenReturn(false);

@@ -6,9 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,25 +23,17 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 @ExtendWith(MockitoExtension.class)
 class ParkingSpotDAOTest {
 
-	private static ParkingSpotDAO parkingSpotDAO;
-	private static DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
-	private static ParkingSpot parkingSpot;
-	private static DataBaseConfig dataBaseConfig = new DataBaseTestConfig();
+	private ParkingSpotDAO parkingSpotDAO;
+	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private ParkingSpot parkingSpot;
+	private DataBaseConfig dataBaseConfig = new DataBaseTestConfig();
 
 	@Mock
 	private DataBaseConfig dataBaseConfigMock = new DataBaseTestConfig();
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-		dataBasePrepareService.clearDataBaseEntries();
-	}
-
 	@BeforeEach
 	void setUp() throws Exception {
+		dataBasePrepareService.clearDataBaseEntries();
 		parkingSpotDAO = new ParkingSpotDAO();
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfig);
 		dataBasePrepareService.clearDataBaseEntries();
@@ -57,16 +47,16 @@ class ParkingSpotDAOTest {
 	void processSetDataBaseConfig_andGetIt() {
 		// GIVEN
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
-		
+
 		// WHEN
 		DataBaseConfig settedDBConfig = parkingSpotDAO.getDataBaseConfig();
-		
+
 		// THEN
 		assertEquals(dataBaseConfigMock, settedDBConfig);
 	}
-	
+
 	@Test
-	void processGetNextAvailableSpot_Bike() throws Exception {		
+	void processGetNextAvailableSpot_Bike() throws Exception {
 		// WHEN
 		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE);
 
@@ -90,9 +80,6 @@ class ParkingSpotDAOTest {
 
 	@Test
 	void processGetNextAvailableSpot_vehicleTypeUnknown() {
-		// GIVEN
-		ParkingType parkingType = ParkingType.TEST;
-
 		// WHEN
 		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.TEST);
 

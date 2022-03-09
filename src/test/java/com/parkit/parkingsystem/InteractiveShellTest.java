@@ -37,13 +37,13 @@ class InteractiveShellTest {
 	private InteractiveShell interactiveShell;
 
 	@Mock
-	private static ParkingService parkingService;
+	private  ParkingService parkingService;
 	@Mock
-	private static InputReaderUtil inputReaderUtil;
+	private  InputReaderUtil inputReaderUtil;
 	@Mock
-	private static ParkingSpotDAO parkingSpotDAO;
+	private  ParkingSpotDAO parkingSpotDAO;
 	@Mock
-	private static TicketDAO ticketDAO;
+	private  TicketDAO ticketDAO;
 
 	@BeforeEach
 	void setUp() throws Exception {

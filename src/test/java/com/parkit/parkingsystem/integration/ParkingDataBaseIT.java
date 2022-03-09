@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -32,22 +31,18 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
-	private static ParkingService parkingService;
-	private static ParkingSpotDAO parkingSpotDAO;
-	private static TicketDAO ticketDAO;
-	private static Connection con;
-	private static PreparedStatement ps;
-	private static ResultSet rs;
-	private static final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
-	private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+	private ParkingService parkingService;
+	private ParkingSpotDAO parkingSpotDAO;
+	private TicketDAO ticketDAO;
+	private Connection con;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
+	private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private static final String vehicleRegNumber = "tdaoT";
 
 	@Mock
-	private static InputReaderUtil inputReaderUtil;
-
-	@BeforeAll
-	private static void setUp() throws Exception {
-	}
+	private InputReaderUtil inputReaderUtil;
 
 	@BeforeEach
 	private void setUpPerTest() throws Exception {
@@ -68,11 +63,11 @@ public class ParkingDataBaseIT {
 		dataBaseTestConfig.closeResultSet(rs);
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
+		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterAll
 	private static void tearDown() {
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)
@@ -80,11 +75,11 @@ public class ParkingDataBaseIT {
 	public void testParkingABike() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-		parkingService.processIncomingVehicle();
+		int savedUnavailableParkingNumber = -1;
 
 		// WHEN
-		int savedUnavailableParkingNumber = -1;
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		parkingService.processIncomingVehicle();
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT * FROM parking WHERE AVAILABLE = 0");
 		rs = ps.executeQuery();
@@ -106,10 +101,10 @@ public class ParkingDataBaseIT {
 		// GIVEN
 		testParkingABike();
 		Thread.sleep(400);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-		parkingService.processExitingVehicle();
 
 		// WHEN
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		parkingService.processExitingVehicle();
 		int availableParkingSlotQuantity = -1;
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT COUNT(*) FROM parking WHERE AVAILABLE = 1");

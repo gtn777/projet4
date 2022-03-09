@@ -29,7 +29,8 @@ public class Ticket {
 	}
 
 	public String getVehicleRegNumber() {
-		return vehicleRegNumber;
+		String returnValue = this.vehicleRegNumber;
+		return returnValue;
 	}
 
 	public void setVehicleRegNumber(String vehicleRegNumber) {
@@ -37,28 +38,34 @@ public class Ticket {
 	}
 
 	public double getPrice() {
-		return price;
+		double returnValue = this.price;
+		return returnValue;
 	}
 
 	public void setPrice(double price) {
-		this.price = BigDecimal.valueOf(price)
-			    .setScale(3, RoundingMode.HALF_UP)
-			    .doubleValue(); 
+		this.price = BigDecimal.valueOf(price).setScale(3, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	public Date getInTime() {
-		return inTime;
+		Date returnValue = this.inTime;
+		return returnValue;
 	}
 
 	public void setInTime(Date inTime) {
-		this.inTime = inTime;
+		this.inTime = new Date(inTime.getTime());
 	}
 
 	public Date getOutTime() {
-		return outTime;
+		Date returnValue = this.outTime;
+		return returnValue;
 	}
 
 	public void setOutTime(Date outTime) {
-		this.outTime = outTime;
+		if (outTime == null) {
+			this.outTime = null;
+		} else {
+			this.outTime = new Date(outTime.getTime());
+		}
+		
 	}
 }
