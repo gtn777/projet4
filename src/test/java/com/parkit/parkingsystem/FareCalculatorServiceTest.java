@@ -35,11 +35,12 @@ public class FareCalculatorServiceTest {
 	private Date inTime;
 	private Date outTime;
 	private ParkingSpot parkingSpot = null;
+
 	@Mock
 	private TicketDAO ticketDAO;
 
 	@BeforeEach
-	private void setUpPerTest() {
+	void setUpPerTest() {
 		ticket = new Ticket();
 		inTime = new Date();
 		outTime = new Date();
@@ -198,7 +199,7 @@ public class FareCalculatorServiceTest {
 
 		// WHEN
 		try {
-			fareCalculatorService.calculateFare(ticket, ticketDAO);			
+			fareCalculatorService.calculateFare(ticket, ticketDAO);
 		} catch (Exception e) {
 			System.out.println("nullPointerException FarCalculatorService");
 		}

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,10 +36,6 @@ class ParkingSpotDAOTest {
 		parkingSpotDAO = new ParkingSpotDAO();
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfig);
 		dataBasePrepareService.clearDataBaseEntries();
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Test

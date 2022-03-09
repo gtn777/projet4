@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -64,10 +63,6 @@ public class ParkingDataBaseIT {
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
 		dataBasePrepareService.clearDataBaseEntries();
-	}
-
-	@AfterAll
-	private static void tearDown() {
 	}
 
 	@Order(1)
