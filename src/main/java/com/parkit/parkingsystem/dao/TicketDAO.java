@@ -50,12 +50,13 @@ public class TicketDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		Ticket ticket = null;
+		ResultSet rs = null;
 		try {
 			con = dataBaseConfig.getConnection();
 			ps = con.prepareStatement(DBConstants.GET_TICKET);
 			// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
 			ps.setString(1, vehicleRegNumber);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			if (rs.next()) {
 				ticket = new Ticket();
 				ParkingSpot parkingSpot = new ParkingSpot(rs.getInt(1), ParkingType.valueOf(rs.getString(6)), false);
@@ -66,8 +67,6 @@ public class TicketDAO {
 				ticket.setInTime(rs.getTimestamp(4));
 				ticket.setOutTime(rs.getTimestamp(5));
 			}
-			dataBaseConfig.closeResultSet(rs);
-			dataBaseConfig.closePreparedStatement(ps);
 			return ticket;
 		} catch (SQLException ex) {
 			logger.error("Error fetching ticket", ex.getMessage());
@@ -76,6 +75,7 @@ public class TicketDAO {
 			logger.error("Error fetching ticket", e.getMessage());
 			return null;
 		} finally {
+			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
 		}
@@ -104,12 +104,13 @@ public class TicketDAO {
 	public boolean isUserEverEntered(String vehicleRegNumber) {
 		Connection con = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			con = dataBaseConfig.getConnection();
 			ps = con.prepareStatement(DBConstants.COUNT_TICKET);
 			// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
 			ps.setString(1, vehicleRegNumber);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			if (rs.next() && !rs.isLast()) {
 				dataBaseConfig.closePreparedStatement(ps);
 				return true;
@@ -120,6 +121,7 @@ public class TicketDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			logger.error("Error fetching data", e);
 		} finally {
+			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
 		}
