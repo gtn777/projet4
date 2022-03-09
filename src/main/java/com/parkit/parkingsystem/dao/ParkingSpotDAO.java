@@ -36,6 +36,8 @@ public class ParkingSpotDAO {
 			logger.error("class not found exception", e.getMessage());
 		} catch (SQLException e) {
 			logger.error("Error fetching next available slot", e.getMessage());
+		} catch (NullPointerException e) {
+			logger.error("Error fetching next available slot", e.getMessage());
 		} finally {
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
@@ -60,6 +62,9 @@ public class ParkingSpotDAO {
 			return false;
 		} catch (SQLException ex) {
 			logger.error("Error updating parking info" + ex.getMessage());
+			return false;
+		} catch (NullPointerException e) {
+			logger.error("Error updating parking info", e.getMessage());
 			return false;
 		} finally {
 			dataBaseConfig.closePreparedStatement(ps);

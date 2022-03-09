@@ -75,11 +75,11 @@ public class ParkingDataBaseIT {
 	public void testParkingABike() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-		parkingService.processIncomingVehicle();
+		int savedUnavailableParkingNumber = -1;
 
 		// WHEN
-		int savedUnavailableParkingNumber = -1;
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		parkingService.processIncomingVehicle();
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT * FROM parking WHERE AVAILABLE = 0");
 		rs = ps.executeQuery();
@@ -101,10 +101,10 @@ public class ParkingDataBaseIT {
 		// GIVEN
 		testParkingABike();
 		Thread.sleep(400);
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-		parkingService.processExitingVehicle();
 
 		// WHEN
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+		parkingService.processExitingVehicle();
 		int availableParkingSlotQuantity = -1;
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT COUNT(*) FROM parking WHERE AVAILABLE = 1");
