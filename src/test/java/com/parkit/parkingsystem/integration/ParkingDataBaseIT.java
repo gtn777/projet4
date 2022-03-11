@@ -23,6 +23,7 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
+import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
@@ -38,7 +39,7 @@ public class ParkingDataBaseIT {
 	private ResultSet rs;
 	private final DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-	private static final String vehicleRegNumber = "tdaoT";
+	private static final String vehicleRegNumber = "pdbIT";
 
 	@Mock
 	private InputReaderUtil inputReaderUtil;
@@ -62,12 +63,12 @@ public class ParkingDataBaseIT {
 		dataBaseTestConfig.closeResultSet(rs);
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
-		dataBasePrepareService.clearDataBaseEntries();
+//		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)
 	@Test
-	public void testParkingABike() throws Exception {
+	public void testParkingABike_updateParkingTable() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
 		int savedUnavailableParkingNumber = -1;
@@ -94,7 +95,7 @@ public class ParkingDataBaseIT {
 	@Test
 	public void testParkingLotExit() throws Exception {
 		// GIVEN
-		testParkingABike();
+		testParkingABike_updateParkingTable();
 		Thread.sleep(400);
 
 		// WHEN
@@ -115,5 +116,6 @@ public class ParkingDataBaseIT {
 		verify(inputReaderUtil, Mockito.times(2)).readVehicleRegistrationNumber();
 		assertEquals(5, availableParkingSlotQuantity);// Check if all parking slot are available after exiting vehicle;
 	}
+
 
 }
