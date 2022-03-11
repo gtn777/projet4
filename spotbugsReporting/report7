@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.1.13-SNAPSHOT" sequence="1" timestamp="1646850145463" analysisTimestamp="1646850143866" release="">
+  <Project projectName="parking-system">
+    <Jar>/home/gpi/projet4/target/classes</Jar>
+    <Jar>/home/gpi/projet4/target/test-classes</Jar>
+    <AuxClasspathEntry>/home/gpi/projet4/target/classes</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/projet4/target/test-classes</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/mockito/mockito-junit-jupiter/4.3.1/mockito-junit-jupiter-4.3.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/objenesis/objenesis/3.2/objenesis-3.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/jacoco/jacoco-maven-plugin/0.8.7/jacoco-maven-plugin-0.8.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-core/3.0/maven-core-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-settings/3.0/maven-settings-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-utils/3.0.22/plexus-utils-3.0.22.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/file-management/1.2.1/file-management-1.2.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-9/plexus-container-default-1.0-alpha-9.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/jacoco/org.jacoco.core/0.8.7/org.jacoco.core-0.8.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/ow2/asm/asm/9.1/asm-9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/ow2/asm/asm-commons/9.1/asm-commons-9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/ow2/asm/asm-analysis/9.1/asm-analysis-9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/ow2/asm/asm-tree/9.1/asm-tree-9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/jacoco/org.jacoco.report/0.8.7/org.jacoco.report-0.8.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/plugins/maven-assembly-plugin/3.3.0/maven-assembly-plugin-3.3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-model/3.0/maven-model-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/maven-common-artifact-filters/3.1.0/maven-common-artifact-filters-3.1.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/maven-shared-utils/3.1.0/maven-shared-utils-3.1.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/maven-artifact-transfer/0.11.0/maven-artifact-transfer-0.11.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.25/plexus-interpolation-1.25.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-archiver/4.2.1/plexus-archiver-4.2.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/iq80/snappy/snappy/0.4/snappy-0.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/tukaani/xz/1.8/xz-1.8.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/maven-shared-io/3.0.0/maven-shared-io-3.0.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-compat/3.0/maven-compat-3.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/wagon/wagon-provider-api/2.10/wagon-provider-api-2.10.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/shared/maven-filtering/3.1.1/maven-filtering-3.1.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/codehaus/plexus/plexus-io/3.2.0/plexus-io-3.2.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/org/apache/maven/maven-archiver/3.5.0/maven-archiver-3.5.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/home/gpi/.m2/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar</AuxClasspathEntry>
+    <SrcDir>/home/gpi/projet4/src/main/java</SrcDir>
+    <SrcDir>/home/gpi/projet4/src/main/resources</SrcDir>
+    <SrcDir>/home/gpi/projet4/src/test/java</SrcDir>
+  </Project>
+  <BugInstance type="DMI_CONSTANT_DB_PASSWORD" priority="2" rank="7" abbrev="Dm" category="SECURITY" first="1">
+    <Class classname="com.parkit.parkingsystem.config.DataBaseConfig">
+      <SourceLine classname="com.parkit.parkingsystem.config.DataBaseConfig" sourcefile="DataBaseConfig.java" sourcepath="com/parkit/parkingsystem/config/DataBaseConfig.java"/>
+    </Class>
+    <Method classname="com.parkit.parkingsystem.config.DataBaseConfig" name="getConnection" signature="()Ljava/sql/Connection;" isStatic="false">
+      <SourceLine classname="com.parkit.parkingsystem.config.DataBaseConfig" start="17" end="19" startBytecode="0" endBytecode="10" sourcefile="DataBaseConfig.java" sourcepath="com/parkit/parkingsystem/config/DataBaseConfig.java"/>
+    </Method>
+    <SourceLine classname="com.parkit.parkingsystem.config.DataBaseConfig" start="19" end="19" startBytecode="22" endBytecode="22" sourcefile="DataBaseConfig.java" sourcepath="com/parkit/parkingsystem/config/DataBaseConfig.java"/>
+    <SourceLine classname="com.parkit.parkingsystem.config.DataBaseConfig" start="19" end="19" startBytecode="22" endBytecode="22" sourcefile="DataBaseConfig.java" sourcepath="com/parkit/parkingsystem/config/DataBaseConfig.java"/>
+  </BugInstance>
+  <BugInstance type="DMI_CONSTANT_DB_PASSWORD" priority="2" rank="7" abbrev="Dm" category="SECURITY" first="1">
+    <Class classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig">
+      <SourceLine classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" sourcefile="DataBaseTestConfig.java" sourcepath="com/parkit/parkingsystem/integration/config/DataBaseTestConfig.java"/>
+    </Class>
+    <Method classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" name="getConnection" signature="()Ljava/sql/Connection;" isStatic="false">
+      <SourceLine classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" start="14" end="16" startBytecode="0" endBytecode="10" sourcefile="DataBaseTestConfig.java" sourcepath="com/parkit/parkingsystem/integration/config/DataBaseTestConfig.java"/>
+    </Method>
+    <SourceLine classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" start="16" end="16" startBytecode="22" endBytecode="22" sourcefile="DataBaseTestConfig.java" sourcepath="com/parkit/parkingsystem/integration/config/DataBaseTestConfig.java"/>
+    <SourceLine classname="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" start="16" end="16" startBytecode="22" endBytecode="22" sourcefile="DataBaseTestConfig.java" sourcepath="com/parkit/parkingsystem/integration/config/DataBaseTestConfig.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 9 Mar 2022 19:22:20 +0100" total_classes="25" referenced_classes="87" total_bugs="2" total_size="1024" num_packages="10" java_version="11.0.14" vm_version="11.0.14+9-Ubuntu-0ubuntu2.20.04" cpu_seconds="33.27" clock_seconds="119.62" peak_mbytes="544.25" alloc_mbytes="1024.00" gc_seconds="0.21" priority_2="2">
+    <PackageStats package="com.parkit.parkingsystem" total_bugs="0" total_types="7" total_size="405">
+      <ClassStats class="com.parkit.parkingsystem.App" sourceFile="App.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.DataBaseConfigTest" sourceFile="DataBaseConfigTest.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.FareCalculatorServiceTest" sourceFile="FareCalculatorServiceTest.java" interface="false" size="107" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.InteractiveShellTest" sourceFile="InteractiveShellTest.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.ParkingServiceTest" sourceFile="ParkingServiceTest.java" interface="false" size="83" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.ParkingSpotDAOTest" sourceFile="ParkingSpotDAOTest.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.TicketDAOTest" sourceFile="TicketDAOTest.java" interface="false" size="45" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.config" total_bugs="1" total_types="2" total_size="40" priority_2="1">
+      <ClassStats class="com.parkit.parkingsystem.config.DBConfigData" sourceFile="DBConfigData.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.config.DataBaseConfig" sourceFile="DataBaseConfig.java" interface="false" size="34" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.constants" total_bugs="0" total_types="3" total_size="26">
+      <ClassStats class="com.parkit.parkingsystem.constants.DBConstants" sourceFile="DBConstants.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.constants.Fare" sourceFile="Fare.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.constants.ParkingType" sourceFile="ParkingType.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.dao" total_bugs="0" total_types="2" total_size="159">
+      <ClassStats class="com.parkit.parkingsystem.dao.ParkingSpotDAO" sourceFile="ParkingSpotDAO.java" interface="false" size="58" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.dao.TicketDAO" sourceFile="TicketDAO.java" interface="false" size="101" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.integration" total_bugs="0" total_types="1" total_size="68">
+      <ClassStats class="com.parkit.parkingsystem.integration.ParkingDataBaseIT" sourceFile="ParkingDataBaseIT.java" interface="false" size="68" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.integration.config" total_bugs="1" total_types="2" total_size="38" priority_2="1">
+      <ClassStats class="com.parkit.parkingsystem.integration.config.DBTestConfigData" sourceFile="DBTestConfigData.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.integration.config.DataBaseTestConfig" sourceFile="DataBaseTestConfig.java" interface="false" size="32" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.integration.service" total_bugs="0" total_types="1" total_size="22">
+      <ClassStats class="com.parkit.parkingsystem.integration.service.DataBasePrepareService" sourceFile="DataBasePrepareService.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.model" total_bugs="0" total_types="2" total_size="78">
+      <ClassStats class="com.parkit.parkingsystem.model.ParkingSpot" sourceFile="ParkingSpot.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.model.Ticket" sourceFile="Ticket.java" interface="false" size="46" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.service" total_bugs="0" total_types="4" total_size="164">
+      <ClassStats class="com.parkit.parkingsystem.service.FareCalculatorService" sourceFile="FareCalculatorService.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.service.FareCalculatorService$1" sourceFile="FareCalculatorService.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.service.InteractiveShell" sourceFile="InteractiveShell.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="com.parkit.parkingsystem.service.ParkingService" sourceFile="ParkingService.java" interface="false" size="86" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.parkit.parkingsystem.util" total_bugs="0" total_types="1" total_size="24">
+      <ClassStats class="com.parkit.parkingsystem.util.InputReaderUtil" sourceFile="InputReaderUtil.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="220" invocations="640" avgMicrosecondsPerInvocation="344" maxMicrosecondsPerInvocation="47004" standardDeviationMicrosecondsPerInvocation="1943"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="106" invocations="143" avgMicrosecondsPerInvocation="747" maxMicrosecondsPerInvocation="34418" standardDeviationMicrosecondsPerInvocation="2945"/>
+      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="100" invocations="2" avgMicrosecondsPerInvocation="50252" maxMicrosecondsPerInvocation="73148" standardDeviationMicrosecondsPerInvocation="22896"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="63" invocations="645" avgMicrosecondsPerInvocation="98" maxMicrosecondsPerInvocation="2511" standardDeviationMicrosecondsPerInvocation="253"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="59" invocations="143" avgMicrosecondsPerInvocation="416" maxMicrosecondsPerInvocation="4105" standardDeviationMicrosecondsPerInvocation="659"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="54" invocations="87" avgMicrosecondsPerInvocation="630" maxMicrosecondsPerInvocation="6680" standardDeviationMicrosecondsPerInvocation="1116"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="53" invocations="87" avgMicrosecondsPerInvocation="610" maxMicrosecondsPerInvocation="7065" standardDeviationMicrosecondsPerInvocation="1244"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="48" invocations="160" avgMicrosecondsPerInvocation="303" maxMicrosecondsPerInvocation="3614" standardDeviationMicrosecondsPerInvocation="474"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="46" invocations="157" avgMicrosecondsPerInvocation="293" maxMicrosecondsPerInvocation="3226" standardDeviationMicrosecondsPerInvocation="480"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="42" invocations="120" avgMicrosecondsPerInvocation="351" maxMicrosecondsPerInvocation="3438" standardDeviationMicrosecondsPerInvocation="593"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="39" invocations="143" avgMicrosecondsPerInvocation="276" maxMicrosecondsPerInvocation="3609" standardDeviationMicrosecondsPerInvocation="450"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="32" invocations="261" avgMicrosecondsPerInvocation="124" maxMicrosecondsPerInvocation="2551" standardDeviationMicrosecondsPerInvocation="222"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="32" invocations="143" avgMicrosecondsPerInvocation="224" maxMicrosecondsPerInvocation="2781" standardDeviationMicrosecondsPerInvocation="357"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildStringPassthruGraph" totalMilliseconds="31" invocations="87" avgMicrosecondsPerInvocation="358" maxMicrosecondsPerInvocation="17615" standardDeviationMicrosecondsPerInvocation="1911"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="23" invocations="601" avgMicrosecondsPerInvocation="38" maxMicrosecondsPerInvocation="2464" standardDeviationMicrosecondsPerInvocation="112"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="21" invocations="25" avgMicrosecondsPerInvocation="851" maxMicrosecondsPerInvocation="4509" standardDeviationMicrosecondsPerInvocation="1199"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="21" invocations="25" avgMicrosecondsPerInvocation="851" maxMicrosecondsPerInvocation="4093" standardDeviationMicrosecondsPerInvocation="1029"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="20" invocations="87" avgMicrosecondsPerInvocation="237" maxMicrosecondsPerInvocation="8397" standardDeviationMicrosecondsPerInvocation="921"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="19" invocations="87" avgMicrosecondsPerInvocation="228" maxMicrosecondsPerInvocation="2840" standardDeviationMicrosecondsPerInvocation="490"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnconditionalWait" totalMilliseconds="19" invocations="25" avgMicrosecondsPerInvocation="789" maxMicrosecondsPerInvocation="18779" standardDeviationMicrosecondsPerInvocation="3672"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="18" invocations="25" avgMicrosecondsPerInvocation="751" maxMicrosecondsPerInvocation="3695" standardDeviationMicrosecondsPerInvocation="971"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="17" invocations="87" avgMicrosecondsPerInvocation="202" maxMicrosecondsPerInvocation="6291" standardDeviationMicrosecondsPerInvocation="698"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="17" invocations="25" avgMicrosecondsPerInvocation="693" maxMicrosecondsPerInvocation="4916" standardDeviationMicrosecondsPerInvocation="1083"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="15" invocations="71" avgMicrosecondsPerInvocation="216" maxMicrosecondsPerInvocation="8403" standardDeviationMicrosecondsPerInvocation="984"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="14" invocations="25" avgMicrosecondsPerInvocation="566" maxMicrosecondsPerInvocation="3189" standardDeviationMicrosecondsPerInvocation="702"/>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="12" invocations="3161" avgMicrosecondsPerInvocation="4" maxMicrosecondsPerInvocation="2381" standardDeviationMicrosecondsPerInvocation="59"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="12" invocations="87" avgMicrosecondsPerInvocation="139" maxMicrosecondsPerInvocation="2491" standardDeviationMicrosecondsPerInvocation="347"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MethodReturnCheck" totalMilliseconds="11" invocations="25" avgMicrosecondsPerInvocation="477" maxMicrosecondsPerInvocation="2420" standardDeviationMicrosecondsPerInvocation="577"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="11" invocations="87" avgMicrosecondsPerInvocation="136" maxMicrosecondsPerInvocation="2651" standardDeviationMicrosecondsPerInvocation="327"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1646850145463" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>
