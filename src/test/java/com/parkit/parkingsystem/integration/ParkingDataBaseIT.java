@@ -23,7 +23,6 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
-import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
@@ -68,7 +67,7 @@ public class ParkingDataBaseIT {
 
 	@Order(1)
 	@Test
-	public void testParkingABike_updateParkingTable() throws Exception {
+	public void testParkingABike_checkUpdateParkingTable() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
 		int savedUnavailableParkingNumber = -1;
@@ -93,9 +92,9 @@ public class ParkingDataBaseIT {
 
 	@Order(2)
 	@Test
-	public void testParkingLotExit() throws Exception {
+	public void testParkingLotThenExitExit_checkUpdateParkingTable() throws Exception {
 		// GIVEN
-		testParkingABike_updateParkingTable();
+		testParkingABike_checkUpdateParkingTable();
 		Thread.sleep(400);
 
 		// WHEN
@@ -116,6 +115,5 @@ public class ParkingDataBaseIT {
 		verify(inputReaderUtil, Mockito.times(2)).readVehicleRegistrationNumber();
 		assertEquals(5, availableParkingSlotQuantity);// Check if all parking slot are available after exiting vehicle;
 	}
-
 
 }

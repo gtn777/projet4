@@ -69,7 +69,7 @@ public class ParkingServiceTest {
 
 	@Order(2)
 	@Test
-	public void processIncomingVehicleWithRecurrentUser() throws Exception {
+	public void processIncomingVehicle() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(1);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
