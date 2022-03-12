@@ -62,9 +62,6 @@ class DataBaseConfigTest {
 		statement = DBConstants.GET_PARKING_SPOT_QUANTITY;
 
 		// WHEN
-		dataBaseConfig.closeResultSet(rs);
-		dataBaseConfig.closePreparedStatement(ps);
-		dataBaseConfig.closeConnection((con));
 		con = dataBaseConfig.getConnection();
 		ps = con.prepareStatement(statement);
 		rs = ps.executeQuery();

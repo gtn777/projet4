@@ -2,6 +2,7 @@ package com.parkit.parkingsystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
@@ -89,6 +90,24 @@ class TicketDAOTest {
 
 		// THEN
 		assertTrue(ticketDAO.isUserEverEntered(vehicleRegNumber));
+	}
+
+	@Order(5)
+	@Test
+	void testSetDataBaseConfig() {
+		// GIVEN
+		ticketDAO = new TicketDAO();
+		String initialDataBaseConfig = "";
+		String currentDataBaseConfig = "";
+
+		// WHEN
+		initialDataBaseConfig = ticketDAO.getDataBaseConfig().getClass().toString();
+		ticketDAO.setDataBaseConfig(dataBaseTestConfig);
+		currentDataBaseConfig = ticketDAO.getDataBaseConfig().getClass().toString();
+
+		// THEN
+		assertNotEquals(initialDataBaseConfig, currentDataBaseConfig);
+
 	}
 
 }

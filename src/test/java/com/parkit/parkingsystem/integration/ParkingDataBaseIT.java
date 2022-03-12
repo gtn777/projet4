@@ -62,7 +62,6 @@ public class ParkingDataBaseIT {
 		dataBaseTestConfig.closeResultSet(rs);
 		dataBaseTestConfig.closePreparedStatement(ps);
 		dataBaseTestConfig.closeConnection(con);
-//		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@Order(1)
@@ -92,7 +91,7 @@ public class ParkingDataBaseIT {
 
 	@Order(2)
 	@Test
-	public void testParkingLotThenExitExit_checkUpdateParkingTable() throws Exception {
+	public void testParkingLotThenExit_checkUpdateParkingTable() throws Exception {
 		// GIVEN
 		testParkingABike_checkUpdateParkingTable();
 		Thread.sleep(400);
