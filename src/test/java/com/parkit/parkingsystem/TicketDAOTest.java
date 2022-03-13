@@ -1,10 +1,13 @@
 package com.parkit.parkingsystem;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -48,6 +51,7 @@ class TicketDAOTest {
 	@Test
 	void testToSaveAndGetTicket() {
 		// WHEN
+		ticket.setOutTime(new Date());
 		ticketDAO.saveTicket(ticket);
 		Ticket currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
@@ -73,23 +77,22 @@ class TicketDAOTest {
 
 	@Order(3)
 	@Test
-	void testIsUserEverEntered_unknownUser() {
+	void testIsUserRecurrent_notRecurrentUser() {
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 
 		// THEN
-		assertFalse(ticketDAO.isUserEverEntered(vehicleRegNumber));
+		assertFalse(ticketDAO.isUserRecurrent(vehicleRegNumber));
 	}
 
 	@Order(4)
 	@Test
-	void testIsUserEverEntered_knownUser() {
+	void testIsUserRecurrent_recurrentUser() {
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 		ticketDAO.saveTicket(ticket);
-
 		// THEN
-		assertTrue(ticketDAO.isUserEverEntered(vehicleRegNumber));
+		assertTrue(ticketDAO.isUserRecurrent(vehicleRegNumber));
 	}
 
 	@Order(5)
@@ -107,7 +110,80 @@ class TicketDAOTest {
 
 		// THEN
 		assertNotEquals(initialDataBaseConfig, currentDataBaseConfig);
+	}
 
+	@Order(6)
+	@Test
+	void getTicket_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		ticketDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertEquals(null, ticketDAO.getTicket(vehicleRegNumber));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> ticketDAO.getTicket(vehicleRegNumber));
+	}
+
+	@Order(7)
+	@Test
+	void saveTicket_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		ticketDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertFalse(ticketDAO.saveTicket(ticket));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> ticketDAO.saveTicket(ticket));
+	}
+
+	@Order(8)
+	@Test
+	void updateTicket_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		ticketDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertFalse(ticketDAO.updateTicket(ticket));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> ticketDAO.updateTicket(ticket));
+	}
+
+	@Order(9)
+	@Test
+	void isUserRecurrent_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		ticketDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertFalse(ticketDAO.isUserRecurrent(vehicleRegNumber));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> ticketDAO.isUserRecurrent(vehicleRegNumber));
+	}
+
+	@Order(10)
+	@Test
+	void testIsUserRecurrent_noTicketWithThatRegNumber() {
+		// WHEN
+		dataBasePrepareService.clearDataBaseEntries();
+
+		// THEN
+		assertFalse(ticketDAO.isUserRecurrent(vehicleRegNumber));
 	}
 
 }

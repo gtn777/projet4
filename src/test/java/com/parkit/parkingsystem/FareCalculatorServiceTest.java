@@ -48,7 +48,7 @@ public class FareCalculatorServiceTest {
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setOutTime(outTime);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
-		when(ticketDAO.isUserEverEntered(anyString())).thenReturn(false);
+		when(ticketDAO.isUserRecurrent(anyString())).thenReturn(false);
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class FareCalculatorServiceTest {
 	@Test
 	public void calculateFare_carTenDays_recurrentUser() {
 		// GIVEN
-		when(ticketDAO.isUserEverEntered(anyString())).thenReturn(true);
+		when(ticketDAO.isUserRecurrent(anyString())).thenReturn(true);
 		inTime.setTime(System.currentTimeMillis() - (240 * 60 * 60 * 1000));
 		ticket.setInTime(inTime);
 
@@ -130,7 +130,7 @@ public class FareCalculatorServiceTest {
 		}
 
 		// THEN
-		verify(ticketDAO, Mockito.times(0)).isUserEverEntered(any());
+		verify(ticketDAO, Mockito.times(0)).isUserRecurrent(any());
 		assertEquals(0, ticket.getPrice());
 		assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket, ticketDAO));
 	}
@@ -179,7 +179,7 @@ public class FareCalculatorServiceTest {
 	@Test
 	public void calculateFareCar_withMoreThanADayParkingTime_recurrentUser() {
 		// GIVE
-		when(ticketDAO.isUserEverEntered(anyString())).thenReturn(true);
+		when(ticketDAO.isUserRecurrent(anyString())).thenReturn(true);
 		inTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));
 		ticket.setInTime(inTime);
 
@@ -205,7 +205,7 @@ public class FareCalculatorServiceTest {
 		}
 
 		// THEN
-		verify(ticketDAO, Mockito.times(0)).isUserEverEntered(any());
+		verify(ticketDAO, Mockito.times(0)).isUserRecurrent(any());
 		assertEquals(0, ticket.getPrice());
 		assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket, ticketDAO));
 	}

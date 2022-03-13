@@ -69,10 +69,10 @@ public class TicketDAO {
 			}
 			return ticket;
 		} catch (SQLException ex) {
-			logger.error("Error fetching ticket", ex.getMessage());
+			logger.error("Error fetching ticket SQLException", ex.getMessage());
 			return null;
 		} catch (ClassNotFoundException e) {
-			logger.error("Error fetching ticket", e.getMessage());
+			logger.error("Error fetching ticket ClassNotFoundException", e.getMessage());
 			return null;
 		} finally {
 			dataBaseConfig.closeResultSet(rs);
@@ -93,7 +93,7 @@ public class TicketDAO {
 			ps.execute();
 			return true;
 		} catch (Exception ex) {
-			logger.error("Error saving ticket info", ex);
+			logger.error("Error saving ticket info", ex.getMessage());
 		} finally {
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
@@ -101,7 +101,7 @@ public class TicketDAO {
 		return false;
 	}
 
-	public boolean isUserEverEntered(String vehicleRegNumber) {
+	public boolean isUserRecurrent(String vehicleRegNumber) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -119,7 +119,7 @@ public class TicketDAO {
 				return false;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			logger.error("Error fetching data", e);
+			logger.error("Error fetching data", e.getMessage());
 		} finally {
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);

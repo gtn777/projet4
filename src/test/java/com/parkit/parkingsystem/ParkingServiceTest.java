@@ -75,7 +75,7 @@ public class ParkingServiceTest {
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 		when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
-		when(ticketDAO.isUserEverEntered(any(String.class))).thenReturn(true);
+		when(ticketDAO.isUserRecurrent(any(String.class))).thenReturn(true);
 		when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 
 		// WHEN
@@ -88,7 +88,7 @@ public class ParkingServiceTest {
 		verify(inputReaderUtil, Mockito.times(1)).readVehicleRegistrationNumber();
 		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
 		verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
-		verify(ticketDAO, Mockito.times(1)).isUserEverEntered("ABCDEF");
+		verify(ticketDAO, Mockito.times(1)).isUserRecurrent("ABCDEF");
 		assertDoesNotThrow(() -> {
 			parkingService.processIncomingVehicle();
 		});

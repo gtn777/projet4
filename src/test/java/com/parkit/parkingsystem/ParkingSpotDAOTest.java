@@ -2,6 +2,9 @@ package com.parkit.parkingsystem;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
@@ -96,7 +99,7 @@ class ParkingSpotDAOTest {
 	}
 
 	@Test
-	void processupdateParking_connectionFailed() throws ClassNotFoundException, SQLException {
+	void processupdateParking_connectionIsNull() throws ClassNotFoundException, SQLException {
 		// GIVEN
 		when(dataBaseConfigMock.getConnection()).thenReturn(null);
 		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
@@ -122,4 +125,33 @@ class ParkingSpotDAOTest {
 		assertEquals(false, result);
 	}
 
+	@Test
+	void getNextAvailableSlot_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		parkingSpotDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertEquals(-1, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
+	}
+
+	@Test
+	void updateParking_withSqlAccessFaulty() {
+		// GIVEN
+		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+
+		// WHEN
+		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		parkingSpotDAO.setDataBaseConfig(dbConfigTest);
+
+		// THEN
+		assertFalse(parkingSpotDAO.updateParking(parkingSpot));
+		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertDoesNotThrow(() -> parkingSpotDAO.updateParking(parkingSpot));
+	}
 }

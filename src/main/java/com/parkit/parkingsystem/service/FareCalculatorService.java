@@ -22,7 +22,7 @@ public class FareCalculatorService {
 
 		if (duration > 1800000) {
 			duration -= 1800000;
-			if (ticketDAO.isUserEverEntered(ticket.getVehicleRegNumber())) {
+			if (ticketDAO.isUserRecurrent(ticket.getVehicleRegNumber())) {
 				duration /= 1.05;
 			}
 		} else {
