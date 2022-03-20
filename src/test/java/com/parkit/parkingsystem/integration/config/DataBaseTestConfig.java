@@ -42,7 +42,6 @@ public class DataBaseTestConfig extends DataBaseConfig {
 		pass = properties.getProperty("password");
 		url = properties.getProperty("urlForTest");
 		driver = properties.getProperty("driver");
-
 		logger.info("Create DB connection");
 		Class.forName(driver);
 		return DriverManager.getConnection(url, user, pass);

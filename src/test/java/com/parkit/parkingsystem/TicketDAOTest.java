@@ -31,7 +31,7 @@ class TicketDAOTest {
 	private final DataBaseConfig dataBaseTestConfig = new DataBaseTestConfig();
 	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private final ParkingSpot parkingSpot = new ParkingSpot(5, ParkingType.BIKE, false);
-	private static final String vehicleRegNumber = "tdaoT";
+	private final String vehicleRegNumber = "tdaoT";
 	private Ticket ticket;
 
 	@BeforeEach
@@ -40,19 +40,21 @@ class TicketDAOTest {
 		ticketDAO = new TicketDAO();
 		ticketDAO.setDataBaseConfig(dataBaseTestConfig);
 		ticket = new Ticket();
-		Date inTime = new Date();
-		ticket.setInTime(inTime);
+		ticket.setInTime(new Date(System.currentTimeMillis() - (1000 * 3600 * 24)));
+		ticket.setOutTime(new Date(System.currentTimeMillis()));
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
 		ticket.setPrice(5);
+		ticket.setId(1);
 	}
 
 	@Order(1)
 	@Test
-	void testToSaveAndGetTicket() {
-		// WHEN
-		ticket.setOutTime(new Date());
+	void processSave_thenGetTicket() {
+		// GIVEN
 		ticketDAO.saveTicket(ticket);
+
+		// WHEN
 		Ticket currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
 		// THEN
@@ -61,23 +63,23 @@ class TicketDAOTest {
 
 	@Order(2)
 	@Test
-	void testToUpdateSavedTicketAndGetIt() {
+	void processUpdateTicket_thenGetTicket() {
 		// GIVEN
 		ticketDAO.saveTicket(ticket);
 		ticket.setPrice(42);
-		ticket.setOutTime(new Date(System.currentTimeMillis()));
-		ticket.setId(1);
 
 		// WHEN
-		ticketDAO.updateTicket(ticket);
+		boolean result = ticketDAO.updateTicket(ticket);
+		Ticket currentSavedTicket = ticketDAO.getTicket(vehicleRegNumber);
 
 		// THEN
-		assertEquals(42, ticketDAO.getTicket(vehicleRegNumber).getPrice());
+		assertTrue(result);
+		assertEquals(42, currentSavedTicket.getPrice());
 	}
 
 	@Order(3)
 	@Test
-	void testIsUserRecurrent_notRecurrentUser() {
+	void processIsUserRecurrent_notRecurrentUser() {
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 
@@ -87,17 +89,18 @@ class TicketDAOTest {
 
 	@Order(4)
 	@Test
-	void testIsUserRecurrent_recurrentUser() {
+	void processIsUserRecurrent_recurrentUser() {
 		// WHEN
 		ticketDAO.saveTicket(ticket);
 		ticketDAO.saveTicket(ticket);
+
 		// THEN
 		assertTrue(ticketDAO.isUserRecurrent(vehicleRegNumber));
 	}
 
 	@Order(5)
 	@Test
-	void testSetDataBaseConfig() {
+	void processSetDataBaseConfig_thenGetDataBaseConfig() {
 		// GIVEN
 		ticketDAO = new TicketDAO();
 		String initialDataBaseConfig = "";
@@ -114,23 +117,23 @@ class TicketDAOTest {
 
 	@Order(6)
 	@Test
-	void getTicket_withSqlAccessFaulty() {
+	void processGetTicket_withSqlAccessFaulty() {
 		// GIVEN
-		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
+		DataBaseTestConfig faultyDataBaseConfigTest = new DataBaseTestConfig();
 
 		// WHEN
-		dbConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
-		ticketDAO.setDataBaseConfig(dbConfigTest);
+		faultyDataBaseConfigTest.setAbsoluteLocationOfCredentials("resources/parkingsystemExample.properties");
+		ticketDAO.setDataBaseConfig(faultyDataBaseConfigTest);
 
 		// THEN
 		assertEquals(null, ticketDAO.getTicket(vehicleRegNumber));
-		assertThrows(SQLException.class, () -> dbConfigTest.getConnection());
+		assertThrows(SQLException.class, () -> faultyDataBaseConfigTest.getConnection());
 		assertDoesNotThrow(() -> ticketDAO.getTicket(vehicleRegNumber));
 	}
 
 	@Order(7)
 	@Test
-	void saveTicket_withSqlAccessFaulty() {
+	void processSaveTicket_withSqlAccessFaulty() {
 		// GIVEN
 		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
 
@@ -146,7 +149,7 @@ class TicketDAOTest {
 
 	@Order(8)
 	@Test
-	void updateTicket_withSqlAccessFaulty() {
+	void processUpdateTicket_withSqlAccessFaulty() {
 		// GIVEN
 		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
 

@@ -18,7 +18,7 @@ public class ParkingSpotDAO {
 
 	private DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
-	public int getNextAvailableSlot(ParkingType parkingType) {
+	public int getNextAvailableSlot(ParkingType parkingType) throws NullPointerException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -32,18 +32,18 @@ public class ParkingSpotDAO {
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
+			return result;
 		} catch (ClassNotFoundException e) {
 			logger.error("class not found exception", e.getMessage());
+			return result;
 		} catch (SQLException e) {
 			logger.error("Error fetching next available slot", e.getMessage());
-		} catch (NullPointerException e) {
-			logger.error("Error fetching next available slot", e.getMessage());
+			return result;
 		} finally {
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);
 			dataBaseConfig.closeConnection(con);
 		}
-		return result;
 	}
 
 	public boolean updateParking(ParkingSpot parkingSpot) {
@@ -62,9 +62,6 @@ public class ParkingSpotDAO {
 			return false;
 		} catch (SQLException ex) {
 			logger.error("Error updating parking info" + ex.getMessage());
-			return false;
-		} catch (NullPointerException e) {
-			logger.error("Error updating parking info", e.getMessage());
 			return false;
 		} finally {
 			dataBaseConfig.closePreparedStatement(ps);

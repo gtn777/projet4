@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 
@@ -28,7 +26,7 @@ class ParkingSpotDAOTest {
 	private ParkingSpotDAO parkingSpotDAO;
 	private DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
 	private ParkingSpot parkingSpot;
-	private DataBaseConfig dataBaseConfig = new DataBaseTestConfig();
+	private DataBaseConfig dataBaseTestConfig;
 
 	@Mock
 	private DataBaseConfig dataBaseConfigMock = new DataBaseTestConfig();
@@ -37,24 +35,24 @@ class ParkingSpotDAOTest {
 	void setUp() throws Exception {
 		dataBasePrepareService.clearDataBaseEntries();
 		parkingSpotDAO = new ParkingSpotDAO();
-		parkingSpotDAO.setDataBaseConfig(dataBaseConfig);
-		dataBasePrepareService.clearDataBaseEntries();
+		dataBaseTestConfig = new DataBaseTestConfig();
+		parkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
 	}
 
 	@Test
 	void processSetDataBaseConfig_andGetIt() {
 		// GIVEN
-		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
+		parkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
 
 		// WHEN
 		DataBaseConfig settedDBConfig = parkingSpotDAO.getDataBaseConfig();
 
 		// THEN
-		assertEquals(dataBaseConfigMock, settedDBConfig);
+		assertEquals(dataBaseTestConfig, settedDBConfig);
 	}
 
 	@Test
-	void processGetNextAvailableSpot_Bike() throws Exception {
+	void processGetNextAvailableSpot_parkingTypeBike() throws Exception {
 		// WHEN
 		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE);
 
@@ -63,30 +61,19 @@ class ParkingSpotDAOTest {
 	}
 
 	@Test
-	void processGetNextAvailableSpot_connectionFailed() throws Exception {
+	void processGetNextAvailableSpot_parkingTypeUnknown() {
 		// GIVEN
-		when(dataBaseConfigMock.getConnection()).thenReturn(null);
-		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
+		int result = -1;
 
 		// WHEN
-		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
-
-		// THEN
-		assertDoesNotThrow(() -> parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
-		assertEquals(-1, result);
-	}
-
-	@Test
-	void processGetNextAvailableSpot_vehicleTypeUnknown() {
-		// WHEN
-		int result = parkingSpotDAO.getNextAvailableSlot(ParkingType.TEST);
+		result = parkingSpotDAO.getNextAvailableSlot(ParkingType.TEST);
 
 		// THEN
 		assertEquals(0, result);
 	}
 
 	@Test
-	void processupdateParking() throws Exception {
+	void processUpdateParking_firstSpotCarNotAvailable() throws Exception {
 		// GIVEN
 		parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -99,11 +86,9 @@ class ParkingSpotDAOTest {
 	}
 
 	@Test
-	void processupdateParking_connectionIsNull() throws ClassNotFoundException, SQLException {
+	void processUpdateParking_unknownParkingSpot() {
 		// GIVEN
-		when(dataBaseConfigMock.getConnection()).thenReturn(null);
-		parkingSpotDAO.setDataBaseConfig(dataBaseConfigMock);
-		parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+		parkingSpot = new ParkingSpot(6, ParkingType.CAR, false);
 
 		// WHEN
 		boolean result = parkingSpotDAO.updateParking(parkingSpot);
@@ -114,19 +99,7 @@ class ParkingSpotDAOTest {
 	}
 
 	@Test
-	void processupdateParking_unknownParkingSpot() {
-		// GIVEN
-		parkingSpot = new ParkingSpot(6, ParkingType.CAR, false);
-
-		// WHEN
-		boolean result = parkingSpotDAO.updateParking(parkingSpot);
-
-		// THEN
-		assertEquals(false, result);
-	}
-
-	@Test
-	void getNextAvailableSlot_withSqlAccessFaulty() {
+	void processGetNextAvailableSlot_withSqlAccessFaulty() {
 		// GIVEN
 		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
 
@@ -141,7 +114,7 @@ class ParkingSpotDAOTest {
 	}
 
 	@Test
-	void updateParking_withSqlAccessFaulty() {
+	void processUpdateParking_withSqlAccessFaulty() {
 		// GIVEN
 		DataBaseTestConfig dbConfigTest = new DataBaseTestConfig();
 

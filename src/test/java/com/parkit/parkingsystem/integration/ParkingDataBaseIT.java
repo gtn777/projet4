@@ -54,7 +54,7 @@ public class ParkingDataBaseIT {
 		con = null;
 		ps = null;
 		rs = null;
-		parkingService = null;
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 	}
 
 	@AfterEach
@@ -66,13 +66,12 @@ public class ParkingDataBaseIT {
 
 	@Order(1)
 	@Test
-	public void testParkingABike_checkUpdateParkingTable() throws Exception {
+	public void testParkingVehicle_checkUpdateParkingTable() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
 		int savedUnavailableParkingNumber = -1;
 
 		// WHEN
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processIncomingVehicle();
 		con = dataBaseTestConfig.getConnection();
 		ps = con.prepareStatement("SELECT * FROM parking WHERE AVAILABLE = 0");
@@ -91,13 +90,12 @@ public class ParkingDataBaseIT {
 
 	@Order(2)
 	@Test
-	public void testParkingLotThenExit_checkUpdateParkingTable() throws Exception {
+	public void testParkingVehicle_thenExit_checkParkingTableIsUpdated() throws Exception {
 		// GIVEN
-		testParkingABike_checkUpdateParkingTable();
+		testParkingVehicle_checkUpdateParkingTable();
 		Thread.sleep(400);
-
+		
 		// WHEN
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
 		int availableParkingSlotQuantity = -1;
 		con = dataBaseTestConfig.getConnection();
@@ -114,5 +112,13 @@ public class ParkingDataBaseIT {
 		verify(inputReaderUtil, Mockito.times(2)).readVehicleRegistrationNumber();
 		assertEquals(5, availableParkingSlotQuantity);// Check if all parking slot are available after exiting vehicle;
 	}
+	
+//	@Order(3)
+//	@Test 
+//	public void testParkingVehicle_ThenExit_checkTicketValues() {
+//		
+//	}
+
+
 
 }

@@ -51,7 +51,7 @@ public class ParkingServiceTest {
 
 	@Order(1)
 	@Test
-	public void processExitingVehicleTest() throws Exception {
+	public void processExitingVehicle() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 		when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
@@ -133,7 +133,7 @@ public class ParkingServiceTest {
 
 	@Order(5)
 	@Test
-	public void processExitingVehicleTest_withTicketUpdateFaulty() throws Exception {
+	public void processExitingVehicle_withTicketUpdateFaulty() throws Exception {
 		// GIVEN
 		when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 		when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
