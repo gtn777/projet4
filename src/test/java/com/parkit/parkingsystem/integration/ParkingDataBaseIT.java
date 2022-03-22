@@ -112,13 +112,4 @@ public class ParkingDataBaseIT {
 		verify(inputReaderUtil, Mockito.times(2)).readVehicleRegistrationNumber();
 		assertEquals(5, availableParkingSlotQuantity);// Check if all parking slot are available after exiting vehicle;
 	}
-	
-//	@Order(3)
-//	@Test 
-//	public void testParkingVehicle_ThenExit_checkTicketValues() {
-//		
-//	}
-
-
-
 }
